@@ -1,0 +1,19 @@
+{
+  "name": "uuDockitHelper",
+  "version": "0.1.0",
+  "description": "Helper for uuDockit",
+  "scripts": {
+    "start": "http-server -p 4323"
+  },
+  "keywords": [
+    "uuDockit"
+  ],
+  "author": "Jiří Dudek",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  },
+  "dependencies": {
+    "uu5-to-markdown": "^0.1.1"
+  }
+}
