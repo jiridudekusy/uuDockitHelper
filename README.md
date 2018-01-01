@@ -52,3 +52,6 @@ You can use preview feature to see how the content will look like in UU5. If you
 # How to Develop
 
 Currently this package does not contains some reasonable code. If you want to extend MD -> UU5 and MD -> UU5 you probably need to extend some dependencies or introduce new via plugins.
+
+Any change pushed into develop is automatically build as Docker image jiridudekusy/uudockit-helper with tag latest (any change pushed into other branch(- master)has tag same as name of the branch). 
+

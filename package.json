@@ -22,6 +22,6 @@
     "http-server": "^0.10.0"
   },
   "dependencies": {
-    "uu5-to-markdown": "^0.1.1"
+    "uu5-to-markdown": "^0.1.3"
   }
 }
