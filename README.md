@@ -47,3 +47,8 @@ You can use preview feature to see how the content will look like in UU5. If you
 - keeping history of pages
 - support compare and comment feature.
 - standard deployment instead of local deployment
+
+
+# How to Develop
+
+Currently this package does not contains some reasonable code. If you want to extend MD -> UU5 and MD -> UU5 you probably need to extend some dependencies or introduce new via plugins.
