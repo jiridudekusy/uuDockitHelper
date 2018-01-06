@@ -87,6 +87,13 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
 `;
 
   var Page = createReactClass({
+      //@@viewOn:mixins
+      mixins: [
+        UU5.Common.BaseMixin,
+        UU5.Common.ElementaryMixin,
+        UU5.Common.ScreenSizeMixin
+      ],
+      //@@viewOff:mixins
       getInitialState() {
         let mdr = new CodeKit.MarkdownRenderer('full', {
           html: true,
@@ -140,6 +147,15 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
         let uuDocKitObject = JSON.parse(uuDocKitString);
 
         return '<uu5string/>' + uuDocKitObject.body.map(part => part.substring('<uu5string/>'.length)).join('\n');
+      },
+      _getEditorSize() {
+        let size = visualViewport.height - 200;
+
+        if (size < 500) {
+          size = 500;
+        }
+
+        return size;
       },
 
       render() {
@@ -201,19 +217,33 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
           <UU5.Bricks.Row>
             <UU5.Bricks.Section level="1"
                                 header="Markdown Editor" hidden={!this._isMode("md")}>
+              <UU5.Bricks.P>
+                <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              </UU5.Bricks.P>
               <CodeKit.MarkdownEditor
                 value={this.mdValue}
                 focus
+                height={this._getEditorSize()}
+                rows=""
                 onChange={this.onChangeMD}
+                wrapEnabled="true"
               />
             </UU5.Bricks.Section>
 
             <UU5.Bricks.Section level="1"
-                                header="uu5string Viewer" hidden={!this._isMode("uu5")}>
+                                header="uuDocKit JSON Editor" hidden={!this._isMode("uu5")}>
+              <UU5.Bricks.P>
+                <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              </UU5.Bricks.P>
+
               <CodeKit.JsonEditor
                 value={r}
                 format="pretty"
+                focus
+                height={this._getEditorSize()}
+                rows=""
                 onChange={this.onChangeUuDocKit}
+                wrapEnabled="true"
               />
 
             </UU5.Bricks.Section>

@@ -87,6 +87,14 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
 `;
 
   var Page = createReactClass({
+
+      //@@viewOn:mixins
+      mixins: [
+        UU5.Common.BaseMixin,
+        UU5.Common.ElementaryMixin,
+        UU5.Common.ScreenSizeMixin
+      ],
+      //@@viewOff:mixins
       getInitialState() {
         this._mdr = new CodeKit.MarkdownRenderer('full', {
           html: true,
@@ -96,7 +104,7 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
           headerLevel: 2
         });
         this.mdValue = md;
-        this._uu5toMarkdown = new UU5ToMarkdown( new UU5CodeKitConverters(), new UUDockitPlugin());
+        this._uu5toMarkdown = new UU5ToMarkdown(new UU5CodeKitConverters(), new UUDockitPlugin());
         return {
           mode: "md"
         }
@@ -126,6 +134,16 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
 
       _isMode(mode) {
         return this.state.mode === mode;
+      },
+
+      _getEditorSize() {
+        let size = visualViewport.height - 200;
+
+        if (size < 500) {
+          size = 500;
+        }
+
+        return size;
       },
 
       render() {
@@ -181,18 +199,31 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
           <UU5.Bricks.Row>
             <UU5.Bricks.Section level="1"
                                 header="Markdown Editor" hidden={!this._isMode("md")}>
+              <UU5.Bricks.P>
+                <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              </UU5.Bricks.P>
               <CodeKit.MarkdownEditor
                 value={this.mdValue}
                 focus
+                height={this._getEditorSize()}
+                rows=""
                 onChange={this.onChangeMD}
+                wrapEnabled="true"
               />
             </UU5.Bricks.Section>
 
             <UU5.Bricks.Section level="1"
-                                header="uu5string Viewer" hidden={!this._isMode("uu5")}>
+                                header="uu5string Editor" hidden={!this._isMode("uu5")}>
+              <UU5.Bricks.P>
+                <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              </UU5.Bricks.P>
               <UU5.CodeKit.Uu5StringEditor
                 value={r}
+                focus
+                height={this._getEditorSize()}
+                rows=""
                 onChange={this.onChangeUU5}
+                wrapEnabled="true"
               />
 
             </UU5.Bricks.Section>
