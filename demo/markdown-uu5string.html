@@ -147,7 +147,15 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
       },
 
       _getEditorSize() {
-        let size = visualViewport.height - 200;
+        let size;
+
+        if(window.visualViewport) {
+          size = visualViewport.height - 250;
+        }else{
+          //falback for browsers taht does not have visualVieport.
+          // TOTO integrate polyfill
+          size = 700;
+        }
 
         if (size < 500) {
           size = 500;
