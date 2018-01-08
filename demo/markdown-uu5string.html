@@ -103,7 +103,14 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
           highlight: true,
           headerLevel: 2
         });
-        this.mdValue = md;
+        if (localStorage['lastMD']) {
+          console.log("loading last MD version from local storage");
+          this.loadedFormStorage = true;
+          this.mdValue = localStorage['lastMD'];
+        } else {
+          this.loadedFormStorage = false;
+          this.mdValue = md;
+        }
         this._uu5toMarkdown = new UU5ToMarkdown(new UU5CodeKitConverters(), new UUDockitPlugin());
         return {
           mode: "md"
@@ -111,7 +118,8 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
       },
 
       onChangeMD(text) {
-        console.log("onChangeMD")
+        console.log("onChangeMD - saving as last version to local storage");
+        localStorage['lastMD'] = text.value;
         this.mdValue = text.value
       },
 
@@ -144,6 +152,13 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
         }
 
         return size;
+      },
+      _resetLocalStorage() {
+        localStorage.clear();
+        this.loadedFormStorage = false;
+        this.mdValue = md;
+        //trigger rerender
+        this.setState({mode: "md"});
       },
 
       render() {
@@ -201,6 +216,10 @@ If you want, you can use Ace as a textarea replacement thanks to the [Ace Bookma
                                 header="Markdown Editor" hidden={!this._isMode("md")}>
               <UU5.Bricks.P>
                 <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              </UU5.Bricks.P>
+              <UU5.Bricks.P hidden={!this.loadedFormStorage}>
+                Last version has been loaded from local storage.
+                <UU5.Bricks.Link onClick={this._resetLocalStorage}>Reset local storage</UU5.Bricks.Link>
               </UU5.Bricks.P>
               <CodeKit.MarkdownEditor
                 value={this.mdValue}
