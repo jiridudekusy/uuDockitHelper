@@ -32,6 +32,15 @@ The application automatically translates content of markdown editor to uu5editor
 
 You can use preview feature to see how the content will look like in UU5. If you are logged in to oidc.plus4u.net you are also able to update uuBML diagrams directly from the preview etc.. 
 
+# How to Use MD->uuDocKit JSON and uuDocKit JSON->MD
+
+Visit <http://localhost:4323/demo/markdown-uuDocKit.html>. You can switch between 
+- markdown editor
+- uuDocKit JSON editor
+- uuDocKit preview
+
+Parts of uuDocKit page is delimited by `{uuDocKit-partBreak}` and and page code is written as first line in format `{uuDocKit-pageCode} page code`. 
+
 # FAQ
 
 1. **Why i have to run it locally ?** 
