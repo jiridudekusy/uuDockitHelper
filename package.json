@@ -1,7 +1,7 @@
 {
   "name": "uuDockitHelper",
   "version": "0.1.0",
-  "description": "Helper for uuDockit",
+  "description": "Helper for uuDockit.",
   "scripts": {
     "start": "http-server -p 4323"
   },
