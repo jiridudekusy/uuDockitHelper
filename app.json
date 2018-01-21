@@ -1,0 +1,10 @@
+{
+  "name": "jdk_dockithelperg02",
+  "code": "JDK.DOCKITHELPERG01",
+  "namespace": "JDK.DockitHelper",
+  "version": "0.1.0",
+  "description": "Helper app forworking with uuDockit.",
+  "vendor": "JDK",
+  "license": "MIT",
+  "template": "uu5-javascript-0.1.0"
+}
