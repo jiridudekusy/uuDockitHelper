@@ -4,9 +4,8 @@ import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import "uu_plus4u5g01-bricks";
 import ns from "ns";
-import UuDockitSetBook from '../bricks/uuDockit-setBook';
-import UuDockitPageSelect from '../bricks/uuDockit-selectPage';
 import UuDockitEditor from '../bricks/uuDockit-editor';
+import UuDockitSelectPageModal from '../bricks/uuDockit-selectPageModal';
 import Calls from '../calls'
 
 const Home = createReactClass({
@@ -41,9 +40,6 @@ const Home = createReactClass({
     // Calls could be set by prop calls by parent component or by interface inside of component like here.
     this.setCalls(Calls);
   },
-  getInitialState() {
-    return {counter: 1}
-  },
   //@@viewOff:standardComponentLifeCycle
 
   //@@viewOn:interface
@@ -53,21 +49,17 @@ const Home = createReactClass({
   //@@viewOff:overridingMethods
 
   //@@viewOn:componentSpecificHelpers
-  _handleBookChange(book) {
-    console.log(`changing book to ${JSON.stringify(book)}`);
-    this.setState({
-      book: book
-    });
-  },
-  _handlePageChange(pageCode) {
-    console.log(`changing page to ${pageCode}`);
-    this.setState({page: pageCode});
+
+  _handlePageChange(page) {
+    this._modal.close();
+    console.log(`changing page to ${JSON.stringify(page)}`);
+    this.setState({page: page});
     let call = this.getCall("loadPage");
     call({
       data: {
-        code: pageCode,
-        tid: this.state.book.tid,
-        awid: this.state.book.awid
+        code: page.code,
+        tid: page.book.tid,
+        awid: page.book.awid
       },
       done: (dtoOut) => {
         console.log(dtoOut);
@@ -81,17 +73,13 @@ const Home = createReactClass({
       }
     });
   },
-  _getSelectPageComponent() {
-    if (this.state.book) {
-      return (<UuDockitPageSelect onSelect={this._handlePageChange} book={this.state.book}/>)
-    }
-  },
+
   _saveContent() {
     console.log("Save content");
     let dtoIn = this._editor.getContent();
 
-    dtoIn.tid = this.state.book.tid;
-    dtoIn.awid = this.state.book.awid;
+    dtoIn.tid = this.state.page.book.tid;
+    dtoIn.awid = this.state.page.book.awid;
     dtoIn.sys = {rev: this.state.pageRev};
 
     let call = this.getCall("updatePage");
@@ -114,10 +102,10 @@ const Home = createReactClass({
     }
   },
   _openModal() {
-    this.setState({modalShown: true});
+    this._modal.open({content: (<UuDockitSelectPageModal onSelect={this._handlePageChange}/>)})
   },
   _onCloseModal() {
-    this.setState({modalShown: false});
+
   },
   //@@viewOff:componentSpecificHelpers
 
@@ -125,24 +113,7 @@ const Home = createReactClass({
   render() {
     return (
         <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-          <UU5.Bricks.Modal
-              shown={this.state.modalShown}
-              ref_={(modal) => this._modal = modal}
-              onClose={this._onCloseModal}
-          >
-            <UU5.Bricks.Div>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UuDockitSetBook onBookSet={this._handleBookChange}/>
-              {this._getSelectPageComponent()}
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-              <UU5.Bricks.P> </UU5.Bricks.P>
-            </UU5.Bricks.Div>
-          </UU5.Bricks.Modal>
+          <UU5.Bricks.Modal header="Select Page" ref_={modal => this._modal = modal}/>
           <UU5.Bricks.Button onClick={this._openModal}>Load Page</UU5.Bricks.Button>
           {this._generateSaveContent()}
           <UuDockitEditor ref_={(editor) => this._editor = editor}/>

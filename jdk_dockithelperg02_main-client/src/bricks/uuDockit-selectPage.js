@@ -17,7 +17,7 @@ export default createReactClass({
 
   //@@viewOn:statics
   statics: {
-    tagName: ns.tag("UuDockit.Helper.PageSelect"),
+    tagName: ns.tag("UuDockitSelectPage"),
     // classNames: {
     //   main: ns.css("uudockit-editor"),
     //   text: ns.css("uudockit-editor-text")
