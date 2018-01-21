@@ -23,6 +23,7 @@ module.exports.getConfig = function () {
     https: false,
     autoOpenInBrowser: false,
     devServerAppBaseUrlPath: (isWithoutServer ? "" : "/vendor-app-subapp/0-0/"), // URL path that serves as root for all content (only on webpack development server)
+    historyApiFallback: true,
 
     // build settings
     sourcePath: srcDir,

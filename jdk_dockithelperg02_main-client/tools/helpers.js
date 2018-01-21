@@ -217,6 +217,7 @@ function getWebpackConfig(options) {
     host: opts.host,
     port: opts.port,
     https: opts.https,
+    historyApiFallback: opts.historyApiFallback,
     open: opts.autoOpenInBrowser,
     disableHostCheck: true, // to be able to use http://localhost.plus4u.net bound to 127.0.0.1
     stats: stats,
