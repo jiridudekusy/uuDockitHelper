@@ -4,8 +4,8 @@ import "uu5g04-bricks";
 
 const Lsi = {
   appName: {
-    cs: "Šablona uuApp",
-    en: "uuApp Template"
+    cs: "uuDocKit Helper",
+    en: "uuDocKit Helper"
   },
 
   leftLinks: {
