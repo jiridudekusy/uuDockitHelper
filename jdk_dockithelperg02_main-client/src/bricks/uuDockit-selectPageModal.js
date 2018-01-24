@@ -59,7 +59,7 @@ export default createReactClass({
       return (<UU5.Bricks.Div>
         <UuDockitPageSelect onSelect={this._handlePageChange} book={this.state.book}/>
         <UU5.Bricks.Button onClick={this._handlePageSelect}>Select Page</UU5.Bricks.Button>
-      </UU5.Bricks.Div>)
+      </UU5.Bricks.Div>);
     }
   },
   _handlePageChange(pageCode) {
@@ -70,7 +70,7 @@ export default createReactClass({
       this.props.onSelect({
         book : this.state.book,
         code: this.state.pageCode
-      })
+      });
     }
   },
   //@@viewOff:componentSpecificHelpers

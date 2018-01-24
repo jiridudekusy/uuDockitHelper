@@ -76,7 +76,7 @@ export default createReactClass({
             Set Book
           </UU5.Bricks.Button>
         </UU5.Bricks.Div>
-    )
+    );
   }
   //@@viewOff:render
 });

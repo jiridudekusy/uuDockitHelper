@@ -4,7 +4,6 @@ import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
 import CodeKit from "uu5codekitg01";
-import PropTypes from "prop-types";
 import {
   desighKitMdToUu5Plugin, MarkdownToUuDocKit, mdToUu5Plugin, UU5CodeKitConverters, UU5ToMarkdown, UuAppDesignKitConverters, UUDockitPlugin,
   UuDocKitToMarkdown
@@ -88,7 +87,7 @@ export default createReactClass({
 
     this._uuDocKitToMarkdown = new UuDocKitToMarkdown(this._uu5toMarkdown);
 
-     if (localStorage['lastMDDocKit']) {
+    if (localStorage['lastMDDocKit']) {
       console.log("loading last MD version from local storage");
       this.loadedFormStorage = true;
       this.mdValue = localStorage['lastMDDocKit'];
@@ -99,7 +98,7 @@ export default createReactClass({
 
     return {
       mode: "md"
-    }
+    };
   },
   //@@viewOff:standardComponentLifeCycle
 
@@ -123,12 +122,12 @@ export default createReactClass({
   onChangeMD(text) {
     console.log("onChangeMD - saving as last version to local storage");
     localStorage['lastMDDocKit'] = text.value;
-    this.mdValue = text.value
+    this.mdValue = text.value;
   },
 
   onChangeUuDocKit(text) {
-    console.log("onChangeUudocKit")
-    this.uuDocKitValue = text.value
+    console.log("onChangeUudocKit");
+    this.uuDocKitValue = text.value;
   },
 
   _setMode(mode) {
@@ -156,7 +155,7 @@ export default createReactClass({
     let size;
 
     if (window.visualViewport) {
-      size = visualViewport.height - 250;
+      size = visualViewport.height - 280;
     } else {
       //falback for browsers taht does not have visualVieport.
       // TOTO integrate polyfill
@@ -194,9 +193,10 @@ export default createReactClass({
         r = this._markdownToUuDocKit.toUuDocKit(this.mdValue);
       }
     }
-    return [
-      <UU5.Bricks.Row>
-        <UU5.Bricks.ButtonSwitch
+    return (
+      <UU5.Bricks.Div>
+        <UU5.Bricks.Row>
+          <UU5.Bricks.ButtonSwitch
             ref_={item => this._mdSwitch = item}
             switchedOn={this._isMode("md")}
             props={{
@@ -207,9 +207,9 @@ export default createReactClass({
             onProps={{
               colorSchema: "success"
             }}>
-          Markdown
-        </UU5.Bricks.ButtonSwitch>
-        <UU5.Bricks.ButtonSwitch
+            Markdown
+          </UU5.Bricks.ButtonSwitch>
+          <UU5.Bricks.ButtonSwitch
             ref_={item => this._previewSwitch = item}
             switchedOn={this._isMode("preview")}
             props={{
@@ -217,11 +217,11 @@ export default createReactClass({
                 this._setMode("preview");
               }
             }} onProps={{
-          colorSchema: "success"
-        }}>
-          Preview
-        </UU5.Bricks.ButtonSwitch>
-        <UU5.Bricks.ButtonSwitch
+            colorSchema: "success"
+          }}>
+            Preview
+          </UU5.Bricks.ButtonSwitch>
+          <UU5.Bricks.ButtonSwitch
             ref_={item => this._uu5Switch = item}
             switchedOn={this._isMode("uu5")}
             props={{
@@ -232,52 +232,53 @@ export default createReactClass({
             onProps={{
               colorSchema: "success"
             }}>
-          uuDocKit
-        </UU5.Bricks.ButtonSwitch>
-      </UU5.Bricks.Row>,
-      <UU5.Bricks.Row>
-        <UU5.Bricks.Div hidden={!this._isMode("md")}>
-          <UU5.Bricks.P>
-            <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
-          </UU5.Bricks.P>
-          <UU5.Bricks.P hidden={!this.loadedFormStorage}>
-            Last version has been loaded from local storage.
-            <UU5.Bricks.Link onClick={this._resetLocalStorage}>Reset local storage</UU5.Bricks.Link>
-          </UU5.Bricks.P>
-          <CodeKit.MarkdownEditor
+            uuDocKit
+          </UU5.Bricks.ButtonSwitch>
+        </UU5.Bricks.Row>
+        <UU5.Bricks.Row>
+          <UU5.Bricks.Div hidden={!this._isMode("md")}>
+            <UU5.Bricks.P>
+              <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+            </UU5.Bricks.P>
+            <UU5.Bricks.P hidden={!this.loadedFormStorage}>
+              Last version has been loaded from local storage.
+              <UU5.Bricks.Link onClick={this._resetLocalStorage}>Reset local storage</UU5.Bricks.Link>
+            </UU5.Bricks.P>
+            <CodeKit.MarkdownEditor
               value={this.mdValue}
               focus
               height={this._getEditorSize()}
-              rows=""
+              rows={0}
               onChange={this.onChangeMD}
-              wrapEnabled="true"
-          />
-        </UU5.Bricks.Div>
+              wrapEnabled={true}
+            />
+          </UU5.Bricks.Div>
 
-        <UU5.Bricks.Div hidden={!this._isMode("uu5")}>
-          <UU5.Bricks.P>
-            <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
-          </UU5.Bricks.P>
+          <UU5.Bricks.Div hidden={!this._isMode("uu5")}>
+            <UU5.Bricks.P>
+              <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+            </UU5.Bricks.P>
 
-          <CodeKit.JsonEditor
+            <CodeKit.JsonEditor
               value={r}
               format="pretty"
               focus
               height={this._getEditorSize()}
-              rows=""
+              rows={0}
               onChange={this.onChangeUuDocKit}
-              wrapEnabled="true"
-          />
+              wrapEnabled={true}
+            />
 
-        </UU5.Bricks.Div>
-        <UU5.Bricks.Div hidden={!this._isMode("preview")}>
+          </UU5.Bricks.Div>
+          <UU5.Bricks.Div hidden={!this._isMode("preview")}>
 
-          <UU5.Bricks.Div content={r}/>
-        </UU5.Bricks.Div>
+            <UU5.Bricks.Div content={r}/>
+          </UU5.Bricks.Div>
 
 
-      </UU5.Bricks.Row>
-    ];
+        </UU5.Bricks.Row>
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });

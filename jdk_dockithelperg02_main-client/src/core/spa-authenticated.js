@@ -14,6 +14,7 @@ import Bottom from "./bottom.js";
 import About from "./about.js";
 import Home from "./home.js";
 import UuDockitEditor from "./uuDockit-editor";
+import TestPage from "./testPage";
 
 import "./spa-authenticated.less";
 
@@ -88,7 +89,8 @@ const SpaAuthenticated = createReactClass({
             "/": { component: <Home identity={this.props.identity} /> },
             "/home": { component: <Home identity={this.props.identity} /> },
             "/about": { component: <About identity={this.props.identity} /> },
-            "/editor": { component: <UuDockitEditor /> }
+            "/editor": { component: <UuDockitEditor /> },
+            "/test": { component: <TestPage /> }
           }}
         />
       </Plus4U5.App.Page>

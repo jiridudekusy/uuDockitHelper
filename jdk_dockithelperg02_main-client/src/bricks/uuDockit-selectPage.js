@@ -4,10 +4,7 @@ import PropTypes from "prop-types";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
-import {
-  desighKitMdToUu5Plugin, MarkdownToUuDocKit, mdToUu5Plugin, UU5CodeKitConverters, UU5ToMarkdown, UuAppDesignKitConverters, UUDockitPlugin,
-  UuDocKitToMarkdown
-} from "uu5-to-markdown";
+
 import Calls from "../calls";
 
 export default createReactClass({
@@ -58,17 +55,17 @@ export default createReactClass({
 
   //@@viewOn:componentSpecificHelpers
   _getChild(dtoOut) {
-    let pages = []
+    let pages = [];
     dtoOut.menu.forEach((page) => (pages.push(...this._transformPage(0, page))));
 
-    return [
+    return (
       <UU5.Forms.Select label="uuDocKit Page" onChange={this._selectPage} {...this.getMainPropsToPass()}>
         {pages}
-      </UU5.Forms.Select>]
+      </UU5.Forms.Select>);
   },
 
   _transformPage(indent, page) {
-    let prefix = "<uu5string/><uu5string.pre>" + Array(indent + 1).join("-")+"</uu5string.pre>";
+    let prefix = "<uu5string/><uu5string.pre>" + Array(indent + 1).join("-") + "</uu5string.pre>";
     let res = [];
     res.push((<UU5.Forms.Select.Option content={prefix + page.label} value={page.page}/>));
     if (page.itemList) {
