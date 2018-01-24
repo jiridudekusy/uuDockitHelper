@@ -1,192 +1,65 @@
-# Outline
-- Prerequisites for uuApp project
-- uuApp Deployment Requirements
-- uuApp Local Deployment
-  1. Prepare uuApp
-  2. IntelliJ settings
-  3. NPM repository configuration
-  4. Install and run client
-  5. Install and run server
-- uuApp Initialization
-  1. Initialize uuAppWorkspace
-  2. Configure profiles and permissions
-  3. Test functionality
-- uuApp Distribution Package Creation
+# uuDockit-heklper
+Provides helper tools for more efficient work with uuDockit. 
 
-# Prerequisites
-- Node.js 8.4+
-- MongoDB 3.4+
+**Features** :
+- edit any uuDockit page via markdown
 
-# uuApp Deployment Requirements
+# How to Run
+You must have either NodeJS or Docker.
 
-! Specify application deployment requirements here.
+## Run in NodeJS
+Execute :
+```sh
+cd jdk_dockithelperg02_main-client
+npm install
+npm start 
+```
 
-Example: 
+## Run in Docker
+Execute :
 
-- 1x TID
-- 1x ASID + sysOwner uuIdentity
-- 1x AWID + sysOwner uuIdentity
-- 1x OSID (or a MongoDB connection string for local development)
-      
-# uuApp Local Deployment
+```sh
+docker run -ti -p 1234:1234 --rm jiridudekusy/uudockit-helper
+```
 
-1. Prepare uuApp
-2. Install and run client
+# How to Use
 
-## 1. Prepare uuApp
+Visit <http://localhost:1234/vendor-app-subapp/0-0/editor>. Please note that you should authenticate yourself via oidc.plus4u.net. 
 
-1. Rename project uu_appg01_template-uu5-javascript to new project name.
-           
-   Rename folders uu_appg01_main-client, uu_appg01_main-design, uu_appg01_main-server according project name.
+Features: 
+- load content from uuDockit
+- save content to uuDockit
+- view and edit content. You can switch between:
+  - markdown editor
+  - uu5string editor
+  - uuDockit JSON preview
 
-2. Disconnect from git repository
-    
-    > git remote rm origin
-    
-    If you have new repository for new project, you can connect it with
-    
-    > git remote add origin ssh://git@codebase.plus4u.net:9422/<new_repozitory>.git
-    
-    Verify with
-    
-    > git remote -v        
-     
-       origin  ssh://git@codebase.plus4u.net:9422/<new_repozitory>.git (fetch)
-       origin  ssh://git@codebase.plus4u.net:9422/<new_repozitory>.git (push)
-  
-## 2. IntelliJ settings
-For proper configuration of your IDE go to Settings - Languages & Frameworks - JavaScript and select ECMAScript 6 JavaScript version. 
-Also go to Settings - Languages & Frameworks - Node.js and NPM and enable Node.js Core library.
+The application automatically translates content of markdown editor to uuDokit editor and vice versa. Please note that during translation there can be some differences. For example during tranformation into uu5 there is included [typographer](https://github.com/jonschlinkert/remarkable#typographer). During transformation from UU5 to markdown there may be used different syntax for some features (for example *, ** and *** are used for emphasis).
 
-## 3. NPM repository configuration
-**This step is no longer required as _.npmrc_ file with NPM repository configuration has been added to the project root folder.**
+You can use preview feature to see how the content will look like in UU5. It is really recommended to check the preview before you will save data to uuDockik since the preview is quite accurate about how it will look. Please note that uuDockit does not have history feature so there is no possibility to go to previous version of page.  
 
-To install uuAppg01 node modules, NPM repository has to be configured to [https://repo.plus4u.net/repository/npm/](https://repo.plus4u.net/repository/npm/).
+Parts of uuDocKit page is delimited by `{uuDocKit-partBreak}` and and page code is written as first line in format `{uuDocKit-pageCode} page code`. 
 
-NPM repository can be configured in command line:
-   > npm config set registry https://repo.plus4u.net/repository/npm/
+# FAQ
 
-Another way to configure NPM repository is to manually edit file .npmrc in you home folder (or create it if does not exist) and add following line:   
-  
-     registry=https://repo.plus4u.net/repository/npm/
-     
-_Note that only one NPM repository can be configured at the same time. Plus4u repository has set proxy to [https://www.npmjs.com](https://www.npmjs.com) so it can install also third party modules._          
-    
-## 4. Install and run client
-
-1. Change project name
-    Edit app.json and change values of attributes name, code, description and vendor. For name use (a-z), number (0-9) and chars (_-.). For code use (A-Z), number (0-9) and chars (_-.).
-
-2. Installation
-    Open client folder and execute install in command line:
-
-    > cd <your client folder name e.g. uu_appg01_main-client> 
-    > npm install
-
-3. Run
-    Execute command (in folder *_main-client):
-
-    > npm start
-
-4. In case of developing only client side of application you can open Index in browser - [localhost](http://localhost:1234/)
-
-## 5. Install and run server
-1. Mongo DB Installation and startup
-    - Download Mongo DB for windows from [MongoDB](https://www.mongodb.com/download-center?jmp=nav#community)
-    - Execute downloaded executable and choose complete installation.
-    - Run command line. Open "C:\Program Files\MongoDB\Server\3.x\bin" and execute
-
-      > mongod.exe
-
-     ! This installation is only for development only !
-    - Recommended client is [Robo 3T](https://robomongo.org) for database administration.
-    - Documentation with detailed information is available on [Documentation](https://plus4u.net/ues/sesm?SessFree=ues%253AVPH-BT%253AUAFTEMPLATE)
-2. Configure server
-    - Edit configuration uu_appg01_main-server/development.json and replace <uuSubAppInstanceSysOwner> with your uuIdentity.
-3. Make you sure that command "npm run dist" (chapter uuApp Distribution Package Creation) in folder uu_appg01_main-client was called before next step.
-4. Installation
-    Open server folder and execute install in command line:
-
-    > cd <your server folder name e.g. uu_appg01_main-server> 
-    > npm install
-5. Run
-    Execute command (in folder *_main-server):
-
-    > npm start
-    
-    Application starts locally on default port 6221 and can be accessed e.g. with browser (http://localhost:6221/uu-demoappg01-main/0-0/home).
-
-    _Note that you should be able to access home page. But error will raise after you run any command from demo except /echo. It is due uuAppWorkspace isn't initialized yet. Follow next chapter to do so._
-# uuApp Initialization
-! Obtain authentication token from [showToken VUC](https://oidc.plus4u.net/uu-oidcg01-main/0-0/showToken). 
-  After login it shows token. This key must be used as Authorization header with value "Bearer <token>" in all following calls.
-
-1. Initialize uuAppWorkspace
-2. Configure profiles and permissions
-3. Test functionality
-
-## 1. Initialize uuAppWorkspace
-
-
-    Use any rest client and call following calls
-
-    POST http://localhost:6221/uu-demoappg01-main/00000000000000000000000000000000-00000000000000000000000000000001/sys/initAppWorkspace
-    Request body:
-    {
-        "awid": "11111111111111111111111111111111",
-        "sysOwner": "<uuIdentity>",
-        "licenseOwner" : {
-            "organization" : {
-                "name" : "Unicorn a.s.",
-                "oId" : "154156465465162",
-                "web" : "http://www.unicorn.com/"
-            },
-            "userList" : [
-                {
-                    "uuIdentity" : "1-1",
-                    "name" : "Vladimír Kovář"
-                }
-            ]
-        }
-    }
-    ! Replace <uuIdentity> with your uuIdentity id.
-    Request initialize workspace for demo application.
-
-## 2. Configure profiles and permissions
-
-    Use any rest client and call following call
-
-    POST: http://localhost:6221/uu-demoappg01-main/00000000000000000000000000000000-11111111111111111111111111111111/sys/setProfile
-    Request body:
-    {
-        "code": "Guests",
-        "roleUri": "urn:uu:GGALL"
-    }
-    Request sets all users as Guests for public rights.
-
-## 3. Test functionality
-
-   Open Index in browser - [Home](http://localhost:6221/uu-demoappg01-main/00000000000000000000000000000000-11111111111111111111111111111111/home).
+1. **Why i have to run it locally ?** 
    
-   You can also execute any command from the template application (e.g. /createBook).
-   
-# uuApp Distribution Package Creation
+   Because otherwise integration with UU5 component repository and oidc.plus4u.net will not work due to the CORS and domain restrictions. 
 
-1. Install npm modules if they are not installed
 
-    > cd main/client
-    > npm install
 
-2. Build client
-    Execute command (in folder main/client):
+# Plans for Future
 
-    > npm run dist
+- support more UU5 components (for example uuDesignKit)
+- direct integration with uuDockit
+- keeping history of pages
+- support compare and comment feature.
+- standard deployment instead of local deployment
 
-    Performs build into ../server/public/ folder.
 
-2. Package server
+# How to Develop
 
-    > cd main/server
-    > npm run build
+Currently this package does not contains some reasonable code. If you want to extend MD -> UU5 and MD -> UU5 you probably need to extend some dependencies or introduce new via plugins.
 
-    Performs build into ../server/target/ folder.
+Any change pushed into develop is automatically build as Docker image jiridudekusy/uudockit-helper with tag latest (any change pushed into other branch(- master)has tag same as name of the branch). 
+
