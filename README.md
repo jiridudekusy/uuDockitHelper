@@ -18,8 +18,13 @@ npm start
 ## Run in Docker
 Execute :
 
+For master/stable version:
 ```sh
 docker run -ti -p 1234:1234 --rm jiridudekusy/uudockit-helper
+```
+For development version:
+```sh
+docker run -ti -p 1234:1234 --rm jiridudekusy/uudockit-helper:develop
 ```
 
 # How to Use
