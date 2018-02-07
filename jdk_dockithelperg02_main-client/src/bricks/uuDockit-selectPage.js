@@ -65,7 +65,7 @@ export default createReactClass({
   },
 
   _transformPage(indent, page) {
-    let prefix = "<uu5string/> " + Array(indent + 1).join("-");
+    let prefix = "<uu5string/> " + Array(page.indent + 1).join("-");
     let res = [];
     let label = this._getPageLabel(page);
 
