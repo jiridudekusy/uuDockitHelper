@@ -32,17 +32,29 @@ const Home = createReactClass({
   //@@viewOff:overridingMethods
 
   //@@viewOn:componentSpecificHelpers
+  _selectValue(input) {
+    this.setState({
+      myValue: input.value
+    });
+  },
+  _createSelectBox(){
+    let items = [];
+    items.push((<UU5.Forms.Select.Option value="item1">Test 1</UU5.Forms.Select.Option>));
+    items.push((<UU5.Forms.Select.Option value="item2">Test 2</UU5.Forms.Select.Option>));
+    items.push((<UU5.Forms.Select.Option value="item3">Test 3</UU5.Forms.Select.Option>));
 
+
+
+    return (
+      <UU5.Forms.Select value={this.state.myValue} onChange={this._selectValue} label="test" {...this.getMainPropsToPass()}>
+        {items}
+      </UU5.Forms.Select>);
+  },
   //@@viewOff:componentSpecificHelpers
 
   //@@viewOn:render
   render() {
-    return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Bricks.AlertBus ref_={alert => this._alertBus = alert}/>
-        <UU5.Bricks.Button onClick={() => this._alertBus.addAlert({content: "test"})}/>
-      </UU5.Bricks.Div>
-    );
+    return this._createSelectBox();
   }
   //@@viewOff:render
 });

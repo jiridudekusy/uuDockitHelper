@@ -117,7 +117,7 @@ const Home = createReactClass({
     });
   },
   _generateSaveContent() {
-    if (this.state.pageRev) {
+    if (this.state.pageRev !== undefined) {
       return (<UU5.Bricks.Button onClick={this._saveContent}>Save Page</UU5.Bricks.Button>);
     }
   },

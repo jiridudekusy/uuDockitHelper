@@ -9,7 +9,7 @@ import UuDockitPageSelect from '../bricks/uuDockit-selectPage';
 
 export default createReactClass({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.ElementaryMixin, UU5.Common.LoadMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.ElementaryMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -19,9 +19,6 @@ export default createReactClass({
     //   main: ns.css("uudockit-editor"),
     //   text: ns.css("uudockit-editor-text")
     // }
-    calls: {
-      // onLoad: "loadUuDockitBook"
-    }
   },
   //@@viewOff:statics
 
@@ -35,10 +32,6 @@ export default createReactClass({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:standardComponentLifeCycle
-  componentWillMount() {
-    // Calls could be set by prop calls by parent component or by interface inside of component like here.
-    // this.setCalls(Calls);
-  },
   //@@viewOff:standardComponentLifeCycle
 
   //@@viewOn:interface

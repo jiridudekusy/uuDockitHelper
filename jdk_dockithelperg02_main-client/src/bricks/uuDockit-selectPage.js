@@ -9,7 +9,7 @@ import Calls from "../calls";
 
 export default createReactClass({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.ElementaryMixin, UU5.Common.LoadMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.ElementaryMixin, UU5.Common.LoadMixin, UU5.Common.LsiMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -59,25 +59,41 @@ export default createReactClass({
     dtoOut.menu.forEach((page) => (pages.push(...this._transformPage(0, page))));
 
     return (
-      <UU5.Forms.Select label="uuDocKit Page" onChange={this._selectPage} {...this.getMainPropsToPass()}>
+      <UU5.Forms.Select label="uuDocKit Page" value={this.state.code} onChange={this._selectPage} {...this.getMainPropsToPass()}>
         {pages}
       </UU5.Forms.Select>);
   },
 
   _transformPage(indent, page) {
-    let prefix = "<uu5string/><uu5string.pre>" + Array(indent + 1).join("-") + "</uu5string.pre>";
+    let prefix = "<uu5string/> " + Array(indent + 1).join("-");
     let res = [];
-    res.push((<UU5.Forms.Select.Option content={prefix + page.label} value={page.page}/>));
+    let label = this._getPageLabel(page);
+
+    if (label.startsWith("<uu5string/>")) {
+      label = label.substring("<uu5string/>".length);
+    }
+
+    res.push((<UU5.Forms.Select.Option key={page.page} value={page.page}>{prefix + label}</UU5.Forms.Select.Option>));
     if (page.itemList) {
       page.itemList.forEach((item) => res.push(...this._transformPage(indent + 1, item)));
     }
     return res;
   },
 
+  _getPageLabel(page) {
+    let label = page.page;
+    if (page.label[this.getLanguage()]) {
+      label = page.label[this.getLanguage()];
+    }
+    return label;
+  },
+
   // TODO why after select the value is not visible ?!!
-  _selectPage(value) {
-    let parts = value.value.split(" - ");
-    let code = parts[parts.length - 1];
+  _selectPage(input) {
+    let code = input.value;
+    this.setState({
+      code: code
+    });
     if (this.props.onSelect) {
       this.props.onSelect(code);
     }
