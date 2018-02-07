@@ -20,16 +20,16 @@ Execute :
 
 For master/stable version:
 ```sh
-docker run -ti -p 1234:1234 --rm jiridudekusy/uudockit-helper
+docker run -ti -p 4323:1234 --rm jiridudekusy/uudockit-helper
 ```
 For development version:
 ```sh
-docker run -ti -p 1234:1234 --rm jiridudekusy/uudockit-helper:develop
+docker run -ti -p 4323:1234 --rm jiridudekusy/uudockit-helper:develop
 ```
 
 # How to Use
 
-Visit <http://localhost:1234/vendor-app-subapp/0-0/editor>. Please note that you should authenticate yourself via oidc.plus4u.net. 
+Visit <http://localhost:4323/vendor-app-subapp/0-0/editor>. Please note that you should authenticate yourself via oidc.plus4u.net. 
 
 Features: 
 - load content from uuDockit
