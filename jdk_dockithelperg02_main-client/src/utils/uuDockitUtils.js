@@ -6,7 +6,11 @@ export default class UuDockitUtils {
     } else {
       uuDocKitObject = dockitJson;
     }
+    let body = uuDocKitObject.body;
+    if(!Array.isArray(body)) {
+      body = [body];
+    }
 
-    return '<uu5string/>' + uuDocKitObject.body.map(part => part.substring('<uu5string/>'.length)).join('\n');
+    return '<uu5string/>' + body.map(part => part.substring('<uu5string/>'.length)).join('\n');
   }
 }
