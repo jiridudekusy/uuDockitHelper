@@ -4,6 +4,7 @@ import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
 import CodeKit from "uu5codekitg01";
+import UuDockitUtils from "../utils/uuDockitUtils";
 import {
   desighKitMdToUu5Plugin, MarkdownToUuDocKit, mdToUu5Plugin, UU5CodeKitConverters, UU5ToMarkdown, UuAppDesignKitConverters, UUDockitPlugin,
   UuDocKitToMarkdown
@@ -146,11 +147,6 @@ export default createReactClass({
     return this.state.mode === mode;
   },
 
-  _uuDockitToUU5(uuDocKitString) {
-    let uuDocKitObject = JSON.parse(uuDocKitString);
-
-    return '<uu5string/>' + uuDocKitObject.body.map(part => part.substring('<uu5string/>'.length)).join('\n');
-  },
   _getEditorSize() {
     let size;
 
@@ -182,7 +178,7 @@ export default createReactClass({
     let r = "";
     if (this.state.mode === "preview") {
       if (this.uuDocKitValue) {
-        r = this._uuDockitToUU5(this.uuDocKitValue);
+        r = UuDockitUtils.toUu5(this.uuDocKitValue);
       } else {
         r = this._markdownToUuDocKit.toUu5(this.mdValue);
       }
