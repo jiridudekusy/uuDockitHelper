@@ -31,12 +31,12 @@ let Calls = {
 
   loadUuDockitBook(dtoIn) {
     let commandUri = Calls.getUuDockitCommandUri(dtoIn, "loadBook");
-    Calls.call("post", commandUri, dtoIn);
+    Calls.call("get", commandUri, dtoIn);
   },
 
   loadUuDockitPage(dtoIn) {
     let commandUri = Calls.getUuDockitCommandUri(dtoIn, "loadPage");
-    Calls.call("post", commandUri, dtoIn);
+    Calls.call("get", commandUri, dtoIn);
   },
 
   updateUuDockitPage(dtoIn) {

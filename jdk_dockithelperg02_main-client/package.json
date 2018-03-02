@@ -27,7 +27,7 @@
     "uu_plus4u5g01": "https://cdn.plus4u.net/uu-plus4u5g01/1.0.0/uu_plus4u5g01.tgz",
     "uu5codekitg01": "https://cdn.plus4u.net/uu-uu5codekitg01/1.1.1/uu5codekitg01.tgz",
     "uuappdesignitg01": "https://cdn.plus4u.net/uu-uuappdesignkitg01/1.0.0/uuappdesignkitg01.tgz",
-    "uu5-to-markdown": "0.1.11"
+    "uu5-to-markdown": "0.1.12"
   },
   "uuBuildSettings": {
     "useCdn": true,
