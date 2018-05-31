@@ -7,6 +7,8 @@ import ns from "ns";
 import UuDockitEditor from "../bricks/uuDockit-editor";
 import UuDockitSelectPageModal from "../bricks/uuDockit-selectPageModal";
 import Calls from "../calls";
+import {Uri} from "uu_appg01_core";
+import PropTypes from "prop-types";
 
 const Home = createReactClass({
   //@@viewOn:mixins
@@ -35,17 +37,40 @@ const Home = createReactClass({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    bookPageUrl: PropTypes.string
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:getDefaultProps
   //@@viewOff:getDefaultProps
 
   //@@viewOn:standardComponentLifeCycle
+  getInitialState() {
+    if (this.props.bookPageUrl) {
+      let uri = Uri.UriBuilder.parse(this.props.bookPageUrl);
+      let page = {
+        book: {
+          tid: uri.tid,
+          awid: uri.awid
+        },
+        code: uri.parameters.code,
+      };
+      return {
+        page
+      };
+    }
+  },
   componentWillMount() {
     // Calls could be set by prop calls by parent component or by interface inside of component like here.
     this.setCalls(Calls);
   },
+  componentDidMount() {
+    if (this.state.page) {
+      this._loadPage(this.state.page);
+    }
+  },
+
   //@@viewOff:standardComponentLifeCycle
 
   //@@viewOn:interface
@@ -58,6 +83,10 @@ const Home = createReactClass({
 
   _handlePageChange(page) {
     this._modal.close();
+    this._loadPage(page);
+  },
+
+  _loadPage(page) {
     console.log(`changing page to ${JSON.stringify(page)}`);
     this.setState({page: page});
     let call = this.getCall("loadPage");
@@ -87,7 +116,6 @@ const Home = createReactClass({
       }
     });
   },
-
   _saveContent() {
     console.log("Save content");
     let dtoIn = this._editor.getContent();

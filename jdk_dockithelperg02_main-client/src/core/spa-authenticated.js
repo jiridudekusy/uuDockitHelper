@@ -15,6 +15,7 @@ import About from "./about.js";
 import Home from "./home.js";
 import UuDockitEditor from "./uuDockit-editor";
 import TestPage from "./testPage";
+import {Uri} from "uu_appg01_core";
 
 import "./spa-authenticated.less";
 
@@ -66,6 +67,11 @@ const SpaAuthenticated = createReactClass({
       />
     );
   },
+  _getUriParameter(name) {
+    // return null;
+    let uri = Uri.UriBuilder.parse(window.location.href);
+    return uri.parameters[name];
+  },
   //@@viewOff:componentSpecificHelpers
 
   //@@viewOn:render
@@ -89,7 +95,7 @@ const SpaAuthenticated = createReactClass({
             "/": { component: <Home identity={this.props.identity} /> },
             "/home": { component: <Home identity={this.props.identity} /> },
             "/about": { component: <About identity={this.props.identity} /> },
-            "/editor": { component: <UuDockitEditor /> },
+            "/editor": { component: <UuDockitEditor bookPageUrl={this._getUriParameter("page")}/> },
             "/test": { component: <TestPage /> }
           }}
         />
