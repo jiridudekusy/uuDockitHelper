@@ -10,7 +10,7 @@ let Calls = {
   APP_BASE_URI:
   location.protocol + "//" + location.host + document.querySelector("base").getAttribute("data-uu-app-base"),
   DOCKIT_BASE_UR:
-      "https://uuos9.plus4u.net/uu-dockitg01-main/0-0/",
+      "https://uuos9.plus4u.net/uu-bookkitg01-main/0-0/",
 
   call(method, url, dtoIn, headers) {
     Client[method](url, dtoIn.data || null, headers).then(
