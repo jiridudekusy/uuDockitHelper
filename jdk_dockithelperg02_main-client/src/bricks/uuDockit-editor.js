@@ -190,6 +190,18 @@ export default createReactClass({
   _insertHex64() {
     this._insertText(UU5.Common.Tools.generateUUID(64));
   },
+  _insertSection() {
+    this._insertText("\n\n# {section} Header\nContent...\n\n{section}\n\n");
+  },
+  _insertBookKitPartEnd() {
+    this._insertText("\n\n{uuDocKit-partBreak}\n");
+  },
+  _insertUuBmlDraw() {
+    this._insertText(`<Plus4U5.UuBmlDraw.Image code="${UU5.Common.Tools.generateUUID(32)}"/> `);
+  },
+  _insertCommentPoint() {
+    this._insertText(`<UuDocKit.Review.CommentPoint code="${UU5.Common.Tools.generateUUID(32)}"/>`);
+  },
   //@@viewOff:componentSpecificHelpers
 
   //@@viewOn:render
@@ -257,6 +269,14 @@ export default createReactClass({
         <UU5.Bricks.Row hidden={!this._isMode("md")}>
           <UU5.Bricks.Button onClick={this._insertHex32}>Insert Hex32</UU5.Bricks.Button>
           <UU5.Bricks.Button onClick={this._insertHex64}>Insert Hex64</UU5.Bricks.Button>
+          <UU5.Bricks.Dropdown label="Insert component">
+            <UU5.Bricks.Dropdown.Item label="Section" onClick={this._insertSection} />
+            <UU5.Bricks.Dropdown.Item divider />
+            <UU5.Bricks.Dropdown.Item label="BookKit Comments" onClick={this._insertCommentPoint} />
+            <UU5.Bricks.Dropdown.Item label="BookKit Part End" onClick={this._insertBookKitPartEnd} />
+            <UU5.Bricks.Dropdown.Item divider />
+            <UU5.Bricks.Dropdown.Item label="uuBmlDraw" onClick={this._insertUuBmlDraw} />
+          </UU5.Bricks.Dropdown>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row>
           <UU5.Bricks.Div hidden={!this._isMode("md")}>
