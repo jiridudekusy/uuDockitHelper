@@ -43,7 +43,7 @@
       "warn",
       {
         "ignoreRefs": true,
-        "allowArrowFunctions": false,
+        "allowArrowFunctions": true,
         "allowBind": false
       }
     ],

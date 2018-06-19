@@ -161,7 +161,7 @@ export default createReactClass({
     let size;
 
     if (window.visualViewport) {
-      size = visualViewport.height - 280;
+      size = window.visualViewport.height - 280;
     } else {
       //falback for browsers taht does not have visualVieport.
       // TOTO integrate polyfill
@@ -180,6 +180,15 @@ export default createReactClass({
     this.mdValue = md;
     //trigger rerender
     this.setState({ mode: "md" });
+  },
+  _insertText(text) {
+    this._mdEditor.insert(text);
+  },
+  _insertHex32() {
+    this._insertText(UU5.Common.Tools.generateUUID(32));
+  },
+  _insertHex64() {
+    this._insertText(UU5.Common.Tools.generateUUID(64));
   },
   //@@viewOff:componentSpecificHelpers
 
@@ -245,6 +254,10 @@ export default createReactClass({
             uuDocKit
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
+        <UU5.Bricks.Row hidden={!this._isMode("md")}>
+          <UU5.Bricks.Button onClick={this._insertHex32}>Insert Hex32</UU5.Bricks.Button>
+          <UU5.Bricks.Button onClick={this._insertHex64}>Insert Hex64</UU5.Bricks.Button>
+        </UU5.Bricks.Row>
         <UU5.Bricks.Row>
           <UU5.Bricks.Div hidden={!this._isMode("md")}>
             <UU5.Bricks.P>
@@ -263,9 +276,9 @@ export default createReactClass({
               rows={0}
               onChange={this.onChangeMD}
               wrapEnabled={true}
+              ref_={editor => (this._mdEditor = editor)}
             />
           </UU5.Bricks.Div>
-
           <UU5.Bricks.Div hidden={!this._isMode("uu5")}>
             <UU5.Bricks.P>
               <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">
