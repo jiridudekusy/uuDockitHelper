@@ -7,7 +7,7 @@ import ns from "ns";
 import UuDockitEditor from "../bricks/uuDockit-editor";
 import UuDockitSelectPageModal from "../bricks/uuDockit-selectPageModal";
 import Calls from "../calls";
-import {Uri} from "uu_appg01_core";
+import { Uri } from "uu_appg01_core";
 import PropTypes from "prop-types";
 
 const Home = createReactClass({
@@ -54,7 +54,7 @@ const Home = createReactClass({
           tid: uri.tid,
           awid: uri.awid
         },
-        code: uri.parameters.code,
+        code: uri.parameters.code
       };
       return {
         page
@@ -88,7 +88,7 @@ const Home = createReactClass({
 
   _loadPage(page) {
     console.log(`changing page to ${JSON.stringify(page)}`);
-    this.setState({page: page});
+    this.setState({ page: page });
     let call = this.getCall("loadPage");
     call({
       data: {
@@ -96,16 +96,16 @@ const Home = createReactClass({
         tid: page.book.tid,
         awid: page.book.awid
       },
-      done: (dtoOut) => {
+      done: dtoOut => {
         console.log(dtoOut);
-        this.setState({pageRev: dtoOut.sys.rev});
+        this.setState({ pageRev: dtoOut.sys.rev });
         // this.setState({callFeedback: "ready", joke: dtoOut.data})
         this._editor.setContent(dtoOut);
         this._alertBus.addAlert({
           content: `Page "${page.code}" has been loaded.`
         });
       },
-      fail: (dtoOut) => {
+      fail: dtoOut => {
         this._alertBus.addAlert({
           content: `Page "${page.code}" cannot be loaded. Error : "${JSON.stringify(dtoOut)}"`,
           colorSchema: "red",
@@ -122,19 +122,19 @@ const Home = createReactClass({
 
     dtoIn.tid = this.state.page.book.tid;
     dtoIn.awid = this.state.page.book.awid;
-    dtoIn.sys = {rev: this.state.pageRev};
+    dtoIn.sys = { rev: this.state.pageRev };
 
     let call = this.getCall("updatePage");
     call({
       data: dtoIn,
-      done: (dtoOut) => {
-        this.setState({pageRev: dtoOut.sys.rev});
+      done: dtoOut => {
+        this.setState({ pageRev: dtoOut.sys.rev });
         this._alertBus.addAlert({
           content: `Page "${dtoIn.code}" has been saved.`
         });
         // this.setState({callFeedback: "ready", joke: dtoOut.data})
       },
-      fail: (dtoOut) => {
+      fail: dtoOut => {
         this._alertBus.addAlert({
           content: `Page "${dtoIn.code}" cannot be saved. Error : "${JSON.stringify(dtoOut)}"`,
           colorSchema: "red",
@@ -146,26 +146,24 @@ const Home = createReactClass({
   },
   _generateSaveContent() {
     if (this.state.pageRev !== undefined) {
-      return (<UU5.Bricks.Button onClick={this._saveContent}>Save Page</UU5.Bricks.Button>);
+      return <UU5.Bricks.Button onClick={this._saveContent}>Save Page</UU5.Bricks.Button>;
     }
   },
   _openModal() {
-    this._modal.open({content: (<UuDockitSelectPageModal onSelect={this._handlePageChange}/>)});
+    this._modal.open({ content: <UuDockitSelectPageModal onSelect={this._handlePageChange} /> });
   },
-  _onCloseModal() {
-
-  },
+  _onCloseModal() {},
   //@@viewOff:componentSpecificHelpers
 
   //@@viewOn:render
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Bricks.AlertBus ref_={alert => (this._alertBus = alert)} closeTimer={3000}/>
-        <UU5.Bricks.Modal header="Select Page" ref_={modal => this._modal = modal}/>
+        <UU5.Bricks.AlertBus ref_={alert => (this._alertBus = alert)} closeTimer={3000} />
+        <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)} />
         <UU5.Bricks.Button onClick={this._openModal}>Load Page</UU5.Bricks.Button>
         {this._generateSaveContent()}
-        <UuDockitEditor ref_={(editor) => this._editor = editor}/>
+        <UuDockitEditor ref_={editor => (this._editor = editor)} />
       </UU5.Bricks.Div>
     );
   }

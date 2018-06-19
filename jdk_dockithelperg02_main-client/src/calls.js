@@ -1,21 +1,20 @@
 /**
  * Server calls of application client.
  */
-import {Uri} from "uu_appg01_core";
-import {Client} from "uu_appg01";
+import { Uri } from "uu_appg01_core";
+import { Client } from "uu_appg01";
 import * as UU5 from "uu5g04";
 
 let Calls = {
   /** URL containing app base, e.g. "https://uuos9.plus4u.net/vnd-app/tid-awid/". */
   APP_BASE_URI:
-  location.protocol + "//" + location.host + document.querySelector("base").getAttribute("data-uu-app-base"),
-  DOCKIT_BASE_UR:
-      "https://uuos9.plus4u.net/uu-bookkitg01-main/0-0/",
+    location.protocol + "//" + location.host + document.querySelector("base").getAttribute("data-uu-app-base"),
+  DOCKIT_BASE_UR: "https://uuos9.plus4u.net/uu-bookkitg01-main/0-0/",
 
   call(method, url, dtoIn, headers) {
     Client[method](url, dtoIn.data || null, headers).then(
-        response => dtoIn.done(response.data),
-        response => dtoIn.fail(response)
+      response => dtoIn.done(response.data),
+      response => dtoIn.fail(response)
     );
   },
 

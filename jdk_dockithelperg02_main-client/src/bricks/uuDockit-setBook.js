@@ -3,7 +3,7 @@ import createReactClass from "create-react-class";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
-import {Uri} from "uu_appg01_core";
+import { Uri } from "uu_appg01_core";
 import PropTypes from "prop-types";
 
 import "./uuDockit-setBook.less";
@@ -61,21 +61,18 @@ export default createReactClass({
   //@@viewOn:render
   render() {
     return (
-        <UU5.Bricks.Div className={this.getClassName("main")}>
-          <UU5.Forms.Text
-              label="Book URI"
-              placeholder="Book URI"
-              value={this.state.bookUri}
-              ref_={(input) => this._bookUriInput = input}
-              className={this.getClassName("input")}
-          />
-          <UU5.Bricks.Button
-              onClick={this._onSetBook}
-              className={this.getClassName("button")}
-          >
-            Set Book
-          </UU5.Bricks.Button>
-        </UU5.Bricks.Div>
+      <UU5.Bricks.Div className={this.getClassName("main")}>
+        <UU5.Forms.Text
+          label="Book URI"
+          placeholder="Book URI"
+          value={this.state.bookUri}
+          ref_={input => (this._bookUriInput = input)}
+          className={this.getClassName("input")}
+        />
+        <UU5.Bricks.Button onClick={this._onSetBook} className={this.getClassName("button")}>
+          Set Book
+        </UU5.Bricks.Button>
+      </UU5.Bricks.Div>
     );
   }
   //@@viewOff:render

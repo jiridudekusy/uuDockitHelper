@@ -64,9 +64,8 @@ export const Left = createReactClass({
 
   _goToEditor() {
     this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER) &&
-    this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER).setRoute("/editor");
+      this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER).setRoute("/editor");
   },
-
 
   //@@viewOff:componentSpecificHelpers
 

@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
-import UuDockitSetBook from '../bricks/uuDockit-setBook';
-import UuDockitPageSelect from '../bricks/uuDockit-selectPage';
+import UuDockitSetBook from "../bricks/uuDockit-setBook";
+import UuDockitPageSelect from "../bricks/uuDockit-selectPage";
 
 export default createReactClass({
   //@@viewOn:mixins
@@ -14,7 +14,7 @@ export default createReactClass({
 
   //@@viewOn:statics
   statics: {
-    tagName: ns.tag("UuDockitSelectPageModal"),
+    tagName: ns.tag("UuDockitSelectPageModal")
     // classNames: {
     //   main: ns.css("uudockit-editor"),
     //   text: ns.css("uudockit-editor-text")
@@ -24,7 +24,7 @@ export default createReactClass({
 
   //@@viewOn:propTypes
   propTypes: {
-    onSelect: PropTypes.func,
+    onSelect: PropTypes.func
   },
   //@@viewOff:propTypes
 
@@ -49,19 +49,21 @@ export default createReactClass({
   },
   _getSelectPageComponent() {
     if (this.state.book) {
-      return (<UU5.Bricks.Div>
-        <UuDockitPageSelect onSelect={this._handlePageChange} book={this.state.book}/>
-        <UU5.Bricks.Button onClick={this._handlePageSelect}>Select Page</UU5.Bricks.Button>
-      </UU5.Bricks.Div>);
+      return (
+        <UU5.Bricks.Div>
+          <UuDockitPageSelect onSelect={this._handlePageChange} book={this.state.book} />
+          <UU5.Bricks.Button onClick={this._handlePageSelect}>Select Page</UU5.Bricks.Button>
+        </UU5.Bricks.Div>
+      );
     }
   },
   _handlePageChange(pageCode) {
-    this.setState({pageCode: pageCode});
+    this.setState({ pageCode: pageCode });
   },
   _handlePageSelect() {
     if (this.props.onSelect) {
       this.props.onSelect({
-        book : this.state.book,
+        book: this.state.book,
         code: this.state.pageCode
       });
     }
@@ -70,21 +72,23 @@ export default createReactClass({
 
   //@@viewOn:render
   render() {
-    return (<UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UuDockitSetBook onBookSet={this._handleBookChange}/>
-      {this._getSelectPageComponent()}
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-      <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-    </UU5.Bricks.Div>);
+    return (
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        <UuDockitSetBook onBookSet={this._handleBookChange} />
+        {this._getSelectPageComponent()}
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });

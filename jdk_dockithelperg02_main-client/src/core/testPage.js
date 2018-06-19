@@ -12,7 +12,7 @@ const Home = createReactClass({
 
   //@@viewOn:statics
   statics: {
-    tagName: ns.tag("NotAuthenticated"),
+    tagName: ns.tag("NotAuthenticated")
   },
   //@@viewOff:statics
 
@@ -37,18 +37,22 @@ const Home = createReactClass({
       myValue: input.value
     });
   },
-  _createSelectBox(){
+  _createSelectBox() {
     let items = [];
-    items.push((<UU5.Forms.Select.Option value="item1">Test 1</UU5.Forms.Select.Option>));
-    items.push((<UU5.Forms.Select.Option value="item2">Test 2</UU5.Forms.Select.Option>));
-    items.push((<UU5.Forms.Select.Option value="item3">Test 3</UU5.Forms.Select.Option>));
-
-
+    items.push(<UU5.Forms.Select.Option value="item1">Test 1</UU5.Forms.Select.Option>);
+    items.push(<UU5.Forms.Select.Option value="item2">Test 2</UU5.Forms.Select.Option>);
+    items.push(<UU5.Forms.Select.Option value="item3">Test 3</UU5.Forms.Select.Option>);
 
     return (
-      <UU5.Forms.Select value={this.state.myValue} onChange={this._selectValue} label="test" {...this.getMainPropsToPass()}>
+      <UU5.Forms.Select
+        value={this.state.myValue}
+        onChange={this._selectValue}
+        label="test"
+        {...this.getMainPropsToPass()}
+      >
         {items}
-      </UU5.Forms.Select>);
+      </UU5.Forms.Select>
+    );
   },
   //@@viewOff:componentSpecificHelpers
 

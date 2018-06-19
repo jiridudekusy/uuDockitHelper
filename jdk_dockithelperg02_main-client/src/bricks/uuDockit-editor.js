@@ -6,7 +6,13 @@ import ns from "ns";
 import CodeKit from "uu5codekitg01";
 import UuDockitUtils from "../utils/uuDockitUtils";
 import {
-  desighKitMdToUu5Plugin, MarkdownToUuDocKit, mdToUu5Plugin, UU5CodeKitConverters, UU5ToMarkdown, UuAppDesignKitConverters, UUDockitPlugin,
+  desighKitMdToUu5Plugin,
+  MarkdownToUuDocKit,
+  mdToUu5Plugin,
+  UU5CodeKitConverters,
+  UU5ToMarkdown,
+  UuAppDesignKitConverters,
+  UUDockitPlugin,
   UuDocKitToMarkdown
 } from "uu5-to-markdown";
 
@@ -52,7 +58,7 @@ export default createReactClass({
 
   //@@viewOn:statics
   statics: {
-    tagName: ns.tag("UuDockitEditor"),
+    tagName: ns.tag("UuDockitEditor")
     // classNames: {
     //   main: ns.css("uudockit-editor"),
     //   text: ns.css("uudockit-editor-text")
@@ -80,18 +86,22 @@ export default createReactClass({
       headerLevel: 2
     });
     this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, {markdownToUu5: this._mdr});
+    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr });
 
     this._markdownToUuDocKit = new MarkdownToUuDocKit(this._mdr);
 
-    this._uu5toMarkdown = new UU5ToMarkdown(new UU5CodeKitConverters(), new UUDockitPlugin(), new UuAppDesignKitConverters());
+    this._uu5toMarkdown = new UU5ToMarkdown(
+      new UU5CodeKitConverters(),
+      new UUDockitPlugin(),
+      new UuAppDesignKitConverters()
+    );
 
     this._uuDocKitToMarkdown = new UuDocKitToMarkdown(this._uu5toMarkdown);
 
-    if (localStorage['lastMDDocKit']) {
+    if (localStorage["lastMDDocKit"]) {
       console.log("loading last MD version from local storage");
       this.loadedFormStorage = true;
-      this.mdValue = localStorage['lastMDDocKit'];
+      this.mdValue = localStorage["lastMDDocKit"];
     } else {
       this.loadedFormStorage = false;
       this.mdValue = md;
@@ -122,7 +132,7 @@ export default createReactClass({
   //@@viewOn:componentSpecificHelpers
   onChangeMD(text) {
     console.log("onChangeMD - saving as last version to local storage");
-    localStorage['lastMDDocKit'] = text.value;
+    localStorage["lastMDDocKit"] = text.value;
     this.mdValue = text.value;
   },
 
@@ -169,7 +179,7 @@ export default createReactClass({
     this.loadedFormStorage = false;
     this.mdValue = md;
     //trigger rerender
-    this.setState({mode: "md"});
+    this.setState({ mode: "md" });
   },
   //@@viewOff:componentSpecificHelpers
 
@@ -193,7 +203,7 @@ export default createReactClass({
       <UU5.Bricks.Div>
         <UU5.Bricks.Row>
           <UU5.Bricks.ButtonSwitch
-            ref_={item => this._mdSwitch = item}
+            ref_={item => (this._mdSwitch = item)}
             switchedOn={this._isMode("md")}
             props={{
               onClick: () => {
@@ -202,23 +212,26 @@ export default createReactClass({
             }}
             onProps={{
               colorSchema: "success"
-            }}>
+            }}
+          >
             Markdown
           </UU5.Bricks.ButtonSwitch>
           <UU5.Bricks.ButtonSwitch
-            ref_={item => this._previewSwitch = item}
+            ref_={item => (this._previewSwitch = item)}
             switchedOn={this._isMode("preview")}
             props={{
               onClick: () => {
                 this._setMode("preview");
               }
-            }} onProps={{
-            colorSchema: "success"
-          }}>
+            }}
+            onProps={{
+              colorSchema: "success"
+            }}
+          >
             Preview
           </UU5.Bricks.ButtonSwitch>
           <UU5.Bricks.ButtonSwitch
-            ref_={item => this._uu5Switch = item}
+            ref_={item => (this._uu5Switch = item)}
             switchedOn={this._isMode("uu5")}
             props={{
               onClick: () => {
@@ -227,14 +240,17 @@ export default createReactClass({
             }}
             onProps={{
               colorSchema: "success"
-            }}>
+            }}
+          >
             uuDocKit
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row>
           <UU5.Bricks.Div hidden={!this._isMode("md")}>
             <UU5.Bricks.P>
-              <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">
+                Keyboard Shortcuts
+              </UU5.Bricks.Link>
             </UU5.Bricks.P>
             <UU5.Bricks.P hidden={!this.loadedFormStorage}>
               Last version has been loaded from local storage.
@@ -252,7 +268,9 @@ export default createReactClass({
 
           <UU5.Bricks.Div hidden={!this._isMode("uu5")}>
             <UU5.Bricks.P>
-              <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Keyboard Shortcuts</UU5.Bricks.Link>
+              <UU5.Bricks.Link href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">
+                Keyboard Shortcuts
+              </UU5.Bricks.Link>
             </UU5.Bricks.P>
 
             <CodeKit.JsonEditor
@@ -264,14 +282,10 @@ export default createReactClass({
               onChange={this.onChangeUuDocKit}
               wrapEnabled={true}
             />
-
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("preview")}>
-
-            <UU5.Bricks.Div content={r}/>
+            <UU5.Bricks.Div content={r} />
           </UU5.Bricks.Div>
-
-
         </UU5.Bricks.Row>
       </UU5.Bricks.Div>
     );

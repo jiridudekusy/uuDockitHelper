@@ -56,12 +56,18 @@ export default createReactClass({
   //@@viewOn:componentSpecificHelpers
   _getChild(dtoOut) {
     let pages = [];
-    dtoOut.menu.forEach((page) => (pages.push(...this._transformPage(0, page))));
+    dtoOut.menu.forEach(page => pages.push(...this._transformPage(0, page)));
 
     return (
-      <UU5.Forms.Select label="uuDocKit Page" value={this.state.code} onChange={this._selectPage} {...this.getMainPropsToPass()}>
+      <UU5.Forms.Select
+        label="uuDocKit Page"
+        value={this.state.code}
+        onChange={this._selectPage}
+        {...this.getMainPropsToPass()}
+      >
         {pages}
-      </UU5.Forms.Select>);
+      </UU5.Forms.Select>
+    );
   },
 
   _transformPage(indent, page) {
@@ -73,9 +79,13 @@ export default createReactClass({
       label = label.substring("<uu5string/>".length);
     }
 
-    res.push((<UU5.Forms.Select.Option key={page.page} value={page.page}>{prefix + label}</UU5.Forms.Select.Option>));
+    res.push(
+      <UU5.Forms.Select.Option key={page.page} value={page.page}>
+        {prefix + label}
+      </UU5.Forms.Select.Option>
+    );
     if (page.itemList) {
-      page.itemList.forEach((item) => res.push(...this._transformPage(indent + 1, item)));
+      page.itemList.forEach(item => res.push(...this._transformPage(indent + 1, item)));
     }
     return res;
   },
