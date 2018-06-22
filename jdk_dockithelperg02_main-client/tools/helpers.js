@@ -52,6 +52,7 @@ function getWebpackConfig(options) {
       { test: /\.jsx?$/, use: ["babel-loader", eslintLoader], parser: { import: false, system: false } },
       cssRule = { test: /\.css$/, use: ["style-loader", cssLoader, postCssLoader] },
       lessRule = { test: /\.less$/, use: ["style-loader", cssLoader, postCssLoader, "less-loader"] },
+      { test: /\.snippets$/, use: ["raw-loader"]},
       { use: [{ loader: "file-loader", options: { name: "[path][name].[ext]" } }] } // if import-ing anything else just copy it
     ]
   }];
