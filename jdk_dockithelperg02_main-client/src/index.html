@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
-    <title>uuAppTemplate</title>
+    <title>jdkBookKitHelper</title>
 
     <!-- NOTE Following URLs are automatically replaced during build according to the configuration in config/config.js.
       Additionally, <base> element is automatically inserted here so that relative paths are loaded relatively to app base,
@@ -16,6 +16,13 @@
     <!--<script src="utils/mySnippet.js"></script>-->
     <script>
       ace.require("ace/ext/language_tools");
+
+      let snippetManager = ace.require("ace/snippets").snippetManager;
+
+      // trick ACE editor that snippets for markdown are loaded already
+      snippetManager.files = {
+        "ace/mode/markdown":{}
+      }
     </script>
 
     <script src="~systemjs/system.js"></script>

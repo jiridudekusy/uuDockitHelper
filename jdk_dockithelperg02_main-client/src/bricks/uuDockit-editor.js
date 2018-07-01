@@ -87,7 +87,7 @@ export default createReactClass({
       headerLevel: 2
     });
     this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, {markdownToUu5: this._mdr});
+    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr });
 
     this._markdownToUuDocKit = new MarkdownToUuDocKit(this._mdr);
 
@@ -180,11 +180,7 @@ export default createReactClass({
     this.loadedFormStorage = false;
     this.mdValue = md;
     //trigger rerender
-    this.setState({mode: "md"});
-  },
-  _insertText(text) {
-    this._mdAceEditor.focus();
-    this._mdAceEditor.insert(text);
+    this.setState({ mode: "md" });
   },
   _insertSnippet(name) {
     let snippets = this._snippetManager.snippetNameMap["markdown"];
@@ -194,29 +190,16 @@ export default createReactClass({
       this._mdAceEditor.insertSnippet(snippet.content);
     }
   },
-  _insertHex32() {
-    this._insertSnippet("hex32");
-  },
-  _insertHex64() {
-    this._insertSnippet("hex64");
-  },
-  _insertSection() {
-    this._insertSnippet("section");
-  },
-  _insertBookKitPartEnd() {
-    this._insertSnippet("endPart");
-  },
-  _insertUuBmlDraw() {
-    this._insertSnippet("draw");
-  },
-  _insertCommentPoint() {
-    this._insertSnippet("comments");
+  _insertComponent(input) {
+    this._modal.close();
+    this._insertSnippet(input.value);
   },
   _onBeforeLoadMd(ace) {
-    console.log(bookkitMarkdownSnippet);
+    if (this._snippetManager != undefined) {
+      return;
+    }
     this._snippetManager = ace.require("ace/snippets").snippetManager;
     let parsedSnippets = this._snippetManager.parseSnippetFile(bookkitMarkdownSnippet);
-    console.log(parsedSnippets);
     parsedSnippets.map(snippet => {
       let res = Object.assign(snippet, {
         _content: snippet.content,
@@ -229,9 +212,31 @@ export default createReactClass({
       });
       return res;
     });
+    // this._snippetManager.unregister(Object.values(this._snippetManager.snippetNameMap["markdown"]), "markdown");
     this._snippetManager.register(parsedSnippets, "markdown");
-
-    console.log(this._snippetManager);
+  },
+  _onEditorLoad(editor) {
+    this._mdAceEditor = editor;
+    let editorComponent = this;
+    editor.commands.addCommand({
+      name: "insertComponent",
+      bindKey: { win: "Alt-Ins", mac: "Command-J" },
+      exec: function() {
+        editorComponent._openModal();
+      }
+    });
+  },
+  _openModal() {
+    let snippets = Object.keys(this._snippetManager.snippetNameMap["markdown"]).map(name => (
+      <UU5.Forms.Select.Option key={name} value={name} />
+    ));
+    this._modal.open({
+      content: (
+        <UU5.Forms.Select label="Component" style={{ marginBottom: "100%" }} onChange={this._insertComponent}>
+          {snippets}
+        </UU5.Forms.Select>
+      )
+    });
   },
   //@@viewOff:componentSpecificHelpers
 
@@ -298,16 +303,8 @@ export default createReactClass({
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row hidden={!this._isMode("md")}>
-          <UU5.Bricks.Button onClick={this._insertHex32}>Insert Hex32</UU5.Bricks.Button>
-          <UU5.Bricks.Button onClick={this._insertHex64}>Insert Hex64</UU5.Bricks.Button>
-          <UU5.Bricks.Dropdown label="Insert component">
-            <UU5.Bricks.Dropdown.Item label="Section" onClick={this._insertSection}/>
-            <UU5.Bricks.Dropdown.Item divider/>
-            <UU5.Bricks.Dropdown.Item label="BookKit Comments" onClick={this._insertCommentPoint}/>
-            <UU5.Bricks.Dropdown.Item label="BookKit Part End" onClick={this._insertBookKitPartEnd}/>
-            <UU5.Bricks.Dropdown.Item divider/>
-            <UU5.Bricks.Dropdown.Item label="uuBmlDraw" onClick={this._insertUuBmlDraw}/>
-          </UU5.Bricks.Dropdown>
+          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)} />
+          <UU5.Bricks.Button onClick={this._openModal}>Insert Component</UU5.Bricks.Button>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row>
           <UU5.Bricks.Div hidden={!this._isMode("md")}>
@@ -331,7 +328,7 @@ export default createReactClass({
               enableBasicAutocompletion={true}
               enableSnippets={true}
               onBeforeLoad={this._onBeforeLoadMd}
-              onLoad={editor => (this._mdAceEditor = editor)}
+              onLoad={this._onEditorLoad}
             />
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("uu5")}>
@@ -352,7 +349,7 @@ export default createReactClass({
             />
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("preview")}>
-            <UU5.Bricks.Div content={r}/>
+            <UU5.Bricks.Div content={r} />
           </UU5.Bricks.Div>
         </UU5.Bricks.Row>
       </UU5.Bricks.Div>
