@@ -50,7 +50,7 @@ export default createReactClass({
   _getSelectPageComponent() {
     if (this.state.book) {
       return (
-        <UU5.Bricks.Div>
+        <UU5.Bricks.Div style={{ marginBottom: "100%" }}>
           <UuDockitPageSelect onSelect={this._handlePageChange} book={this.state.book} />
           <UU5.Bricks.Button onClick={this._handlePageSelect}>Select Page</UU5.Bricks.Button>
         </UU5.Bricks.Div>
@@ -76,17 +76,6 @@ export default createReactClass({
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UuDockitSetBook onBookSet={this._handleBookChange} />
         {this._getSelectPageComponent()}
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
-        <UU5.Bricks.P>Just to see combo...</UU5.Bricks.P>
       </UU5.Bricks.Div>
     );
   }

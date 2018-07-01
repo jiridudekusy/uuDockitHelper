@@ -9,7 +9,7 @@ import Calls from "../calls";
 
 export default createReactClass({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.ElementaryMixin, UU5.Common.LoadMixin, UU5.Common.LsiMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.ElementaryMixin, UU5.Common.LoadMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -91,11 +91,7 @@ export default createReactClass({
   },
 
   _getPageLabel(page) {
-    let label = page.page;
-    if (page.label[this.getLanguage()]) {
-      label = page.label[this.getLanguage()];
-    }
-    return label;
+    return this.getLsiItem(page.label);
   },
 
   // TODO why after select the value is not visible ?!!
