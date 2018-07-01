@@ -38,7 +38,7 @@ const Home = createReactClass({
 
   //@@viewOn:propTypes
   propTypes: {
-    bookPageUrl: PropTypes.string
+    params: PropTypes.object
   },
   //@@viewOff:propTypes
 
@@ -47,8 +47,8 @@ const Home = createReactClass({
 
   //@@viewOn:standardComponentLifeCycle
   getInitialState() {
-    if (this.props.bookPageUrl) {
-      let uri = Uri.UriBuilder.parse(this.props.bookPageUrl);
+    if (this.props.params && this.props.params.page) {
+      let uri = Uri.UriBuilder.parse(this.props.params.page);
       let page = {
         book: {
           tid: uri.tid,
@@ -97,13 +97,13 @@ const Home = createReactClass({
         awid: page.book.awid
       },
       done: dtoOut => {
-        console.log(dtoOut);
         this.setState({ pageRev: dtoOut.sys.rev });
         // this.setState({callFeedback: "ready", joke: dtoOut.data})
         this._editor.setContent(dtoOut);
         this._alertBus.addAlert({
           content: `Page "${page.code}" has been loaded.`
         });
+        document.title = this.getLsiItem(dtoOut.name) + " - jdkBookKitHelper";
       },
       fail: dtoOut => {
         this._alertBus.addAlert({
@@ -111,8 +111,7 @@ const Home = createReactClass({
           colorSchema: "red",
           closeTimer: 0
         });
-
-        // this.setState({callFeedback: "error"})
+        document.title = this.getLsiItem(dtoOut.name) + " - jdkBookKitHelper";
       }
     });
   },

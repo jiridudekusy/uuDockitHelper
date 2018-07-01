@@ -67,11 +67,6 @@ const SpaAuthenticated = createReactClass({
       />
     );
   },
-  _getUriParameter(name) {
-    // return null;
-    let uri = Uri.UriBuilder.parse(window.location.href);
-    return uri.parameters[name];
-  },
   //@@viewOff:componentSpecificHelpers
 
   //@@viewOn:render
@@ -95,7 +90,7 @@ const SpaAuthenticated = createReactClass({
             "/": { component: <Home identity={this.props.identity} /> },
             "/home": { component: <Home identity={this.props.identity} /> },
             "/about": { component: <About identity={this.props.identity} /> },
-            "/editor": { component: <UuDockitEditor bookPageUrl={this._getUriParameter("page")} /> },
+            "/editor": { component: <UuDockitEditor authorized={false}/> },
             "/test": { component: <TestPage /> }
           }}
         />
