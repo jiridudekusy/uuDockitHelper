@@ -8,7 +8,7 @@ import "uu_plus4u5g01-bricks";
 import ns from "ns";
 
 import Lsi from "./lsi.js";
-<import "./home.less";
+import "./home.less";
 
 const Home = createReactClass({
   //@@viewOn:mixins

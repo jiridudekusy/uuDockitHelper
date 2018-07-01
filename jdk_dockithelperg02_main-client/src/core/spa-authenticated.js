@@ -15,7 +15,6 @@ import About from "./about.js";
 import Home from "./home.js";
 import UuDockitEditor from "./uuDockit-editor";
 import TestPage from "./testPage";
-import { Uri } from "uu_appg01_core";
 
 import "./spa-authenticated.less";
 
@@ -90,7 +89,7 @@ const SpaAuthenticated = createReactClass({
             "/": { component: <Home identity={this.props.identity} /> },
             "/home": { component: <Home identity={this.props.identity} /> },
             "/about": { component: <About identity={this.props.identity} /> },
-            "/editor": { component: <UuDockitEditor authorized={false}/> },
+            "/editor": { component: <UuDockitEditor authorized={false} /> },
             "/test": { component: <TestPage /> }
           }}
         />
