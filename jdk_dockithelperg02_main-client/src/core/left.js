@@ -73,9 +73,9 @@ export const Left = createReactClass({
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Bricks.Div className="center">
-          <UU5.Bricks.Image name="Logo" responsive src="assets/logo.png" />
-        </UU5.Bricks.Div>
+        {/*<UU5.Bricks.Div className="center">*/}
+        {/*<UU5.Bricks.Image name="Logo" responsive src="assets/logo.png" />*/}
+        {/*</UU5.Bricks.Div>*/}
 
         {this.props.home && (
           <LeftLink>

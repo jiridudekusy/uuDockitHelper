@@ -4,8 +4,8 @@ import "uu5g04-bricks";
 
 const Lsi = {
   appName: {
-    cs: "uuDocKit Helper",
-    en: "uuDocKit Helper"
+    cs: "jdkBookKit Helper",
+    en: "jdkBookKit Helper"
   },
 
   leftLinks: {
@@ -20,8 +20,8 @@ const Lsi = {
   },
 
   aboutHeader: {
-    cs: "O aplikaci uuDemoApp",
-    en: "About application uuDemoApp"
+    cs: "O aplikaci jdkBookKit Helper",
+    en: "About application jdkBookKit Helper"
   },
 
   aboutCreatorsHeader: {
@@ -31,62 +31,22 @@ const Lsi = {
 
   aboutApp: {
     about: {
-      cs: "Demo aplikace je šablona pro vývoj nových aplikací.",
-      en: "Demo application is a template for developing new applications."
-    },
-    licence: {
-      organisation: {
-        cs: {
-          name: "Unicorn a.s.",
-          uri: "https://www.unicorn.com/"
-        },
-        en: {
-          name: "Unicorn a.s.",
-          uri: "https://www.unicorn.com/"
-        }
-      }
+      cs: "jdkBookKit Helper umožnuje editovat uuBookKit s využitím markdown podle knihovny uu5-to-markdown.",
+      en: "jdkBookKit Helper povides markdown editor(using uu5-to-markdown library) to uuBookKit."
     },
     authors: {
       leadingAuthors: [
         {
-          name: "Name Surname",
+          name: "Jiří Dudek",
           role: (
             <UU5.Bricks.Lsi>
-              <UU5.Bricks.Lsi.Item language="cs">První autor</UU5.Bricks.Lsi.Item>
-              <UU5.Bricks.Lsi.Item language="en">First author</UU5.Bricks.Lsi.Item>
-            </UU5.Bricks.Lsi>
-          )
-        },
-        {
-          name: "Name Surname",
-          role: (
-            <UU5.Bricks.Lsi>
-              <UU5.Bricks.Lsi.Item language="cs">Druhý autor</UU5.Bricks.Lsi.Item>
-              <UU5.Bricks.Lsi.Item language="en">Second author</UU5.Bricks.Lsi.Item>
+              <UU5.Bricks.Lsi.Item language="cs">Jiří Dudek</UU5.Bricks.Lsi.Item>
+              <UU5.Bricks.Lsi.Item language="en">Jiří Dudek</UU5.Bricks.Lsi.Item>
             </UU5.Bricks.Lsi>
           )
         }
       ],
-      otherAuthors: [
-        {
-          name: "Name Surname",
-          role: (
-            <UU5.Bricks.Lsi>
-              <UU5.Bricks.Lsi.Item language="cs">Třetí autor</UU5.Bricks.Lsi.Item>
-              <UU5.Bricks.Lsi.Item language="en">Third author</UU5.Bricks.Lsi.Item>
-            </UU5.Bricks.Lsi>
-          )
-        },
-        {
-          name: "Name Surname",
-          role: (
-            <UU5.Bricks.Lsi>
-              <UU5.Bricks.Lsi.Item language="cs">Čtvrtý autor</UU5.Bricks.Lsi.Item>
-              <UU5.Bricks.Lsi.Item language="en">Fourth author</UU5.Bricks.Lsi.Item>
-            </UU5.Bricks.Lsi>
-          )
-        }
-      ]
+      otherAuthors: []
     },
     usedTechnologies: {
       technologies: {
@@ -94,15 +54,27 @@ const Lsi = {
           <UU5.Bricks.Link key="uaf" content="UAF" href="http://www.unicorn.com/" />,
           <UU5.Bricks.Link key="uu5" content="uu5" href="http://www.unicorn.com/" />,
           <UU5.Bricks.Link key="iot" content="uuIoT" href="http://www.unicorn.com/" />,
-          <UU5.Bricks.Link key="app" content="uuAppServer" href="http://www.unicorn.com/" />
+          <UU5.Bricks.Link key="app" content="uuAppServer" href="http://www.unicorn.com/" />,
+          <UU5.Bricks.Link
+            key="uu5-to-markdown"
+            content="uu5-to-markdown"
+            href="https://www.npmjs.com/package/uu5-to-markdown"
+          />
         ],
-        en: []
+        en: [
+          <UU5.Bricks.Link key="uaf" content="UAF" href="http://www.unicorn.com/" />,
+          <UU5.Bricks.Link key="uu5" content="uu5" href="http://www.unicorn.com/" />,
+          <UU5.Bricks.Link key="iot" content="uuIoT" href="http://www.unicorn.com/" />,
+          <UU5.Bricks.Link key="app" content="uuAppServer" href="http://www.unicorn.com/" />,
+          <UU5.Bricks.Link
+            key="uu5-to-markdown"
+            content="uu5-to-markdown"
+            href="https://www.npmjs.com/package/uu5-to-markdown"
+          />
+        ]
       },
       content: {
-        cs: [
-          "Dále byly použity technologie: Html5, CSS, JavaScript, Bootstrap, React, Ruby, Puma a Docker.",
-          "Aplikace je provozována v rámci internetové služby Plus4U s využitím cloudu Microsoft Azure."
-        ],
+        cs: ["Dále byly použity technologie: Html5, CSS, JavaScript, Bootstrap, React a Docker."],
         en: []
       }
     }
@@ -110,8 +82,8 @@ const Lsi = {
 
   welcome: (
     <UU5.Bricks.Lsi>
-      <UU5.Bricks.Lsi.Item language="cs">Vítejte v šabloně pro aplikace uuAppTemplate</UU5.Bricks.Lsi.Item>
-      <UU5.Bricks.Lsi.Item language="en">Welcome in application template uuAppTemplate</UU5.Bricks.Lsi.Item>
+      <UU5.Bricks.Lsi.Item language="cs">Vítejte v jdkBookKit Helper</UU5.Bricks.Lsi.Item>
+      <UU5.Bricks.Lsi.Item language="en">Welcome in jdkBookKit Helper</UU5.Bricks.Lsi.Item>
     </UU5.Bricks.Lsi>
   ),
 

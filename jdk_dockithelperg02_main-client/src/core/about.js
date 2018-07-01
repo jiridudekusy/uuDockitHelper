@@ -47,22 +47,12 @@ export const About = createReactClass({
   //@@viewOn:render
   render() {
     const about = Lsi.aboutApp.about || {};
-    const licence = Lsi.aboutApp.licence || {};
     const authors = Lsi.aboutApp.authors || {};
     const usedTechnologies = Lsi.aboutApp.usedTechnologies || {};
 
     return (
       <UU5.Bricks.Section {...this.getMainPropsToPass()}>
         <Plus4U5.App.About header={this.getLsiItem(Lsi.aboutHeader)} content={this.getLsiItem(about)} />
-        <Plus4U5.App.Licence
-          organisation={this.getLsiItem(licence.organisation)}
-          authorities={[
-            {
-              name: this.props.identity ? this.props.identity.name : "",
-              uri: "https://www.unicorn.com/"
-            }
-          ]}
-        />
         <Plus4U5.App.Authors
           header={this.getLsiItem(Lsi.aboutCreatorsHeader)}
           leadingAuthors={authors.leadingAuthors}

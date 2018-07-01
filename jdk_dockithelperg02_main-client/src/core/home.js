@@ -8,8 +8,7 @@ import "uu_plus4u5g01-bricks";
 import ns from "ns";
 
 import Lsi from "./lsi.js";
-import WelcomeRow from "../bricks/welcome-row.js";
-import "./home.less";
+<import "./home.less";
 
 const Home = createReactClass({
   //@@viewOn:mixins
@@ -80,15 +79,6 @@ const Home = createReactClass({
             </UU5.Bricks.Column>
           </UU5.Bricks.Div>
         </UU5.Bricks.Row>
-        <WelcomeRow textPadding="6px" icon="mdi-human-greeting">
-          {Lsi.introAuth}
-        </WelcomeRow>
-        <WelcomeRow textPadding="10px" icon="mdi-monitor">
-          {Lsi.clientSideAuth}
-        </WelcomeRow>
-        <WelcomeRow textPadding="10px" icon="mdi-server">
-          {Lsi.serverSideAuth}
-        </WelcomeRow>
       </UU5.Bricks.Div>
     );
   }
