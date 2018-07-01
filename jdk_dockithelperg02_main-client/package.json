@@ -27,10 +27,10 @@
     "uu_appg01_core": "https://cdn.plus4u.net/uu-appg01-core/3.0.0/uu_appg01_core.tgz",
     "uu_oidcg01": "https://cdn.plus4u.net/uu-oidcg01/3.0.0/uu_oidcg01.tgz",
     "uu_plus4u5g01": "https://cdn.plus4u.net/uu-plus4u5g01/1.0.0/uu_plus4u5g01.tgz",
-    "uuappdesignitg01": "https://cdn.plus4u.net/uu-uuappdesignkitg01/1.0.0/uuappdesignkitg01.tgz"
+    "uuappdesignkitg01": "https://cdn.plus4u.net/uu-uuappdesignkitg01/1.0.0/uuappdesignkitg01.tgz"
   },
   "uuBuildSettings": {
-    "useCdn": true,
+    "useCdn": false,
     "dependencies": {
       "systemjs": {
         "cdnBaseUri": "https://cdn.plus4u.net/libs/systemjs/%version%/",
@@ -40,11 +40,15 @@
       },
       "react": {
         "cdnBaseUri": "https://cdn.plus4u.net/libs/react/%version%/",
-        "localBaseUri": "node_modules/react/umd/"
+        "localBaseUri": "node_modules/react/umd/",
+        "main": "react.development.js",
+        "mainMinified": "react.production.min.js"
       },
       "react-dom": {
         "cdnBaseUri": "https://cdn.plus4u.net/libs/react-dom/%version%/",
-        "localBaseUri": "node_modules/react-dom/umd/"
+        "localBaseUri": "node_modules/react-dom/umd/",
+        "main": "react-dom.development.js",
+        "mainMinified": "react-dom.production.min.js"
       },
       "create-react-class": {
         "cdnBaseUri": "https://cdn.plus4u.net/libs/create-react-class/%version%/",
@@ -103,9 +107,9 @@
         "cdnBaseUri": "https://cdn.plus4u.net/uu-uu5codekitg01/%version%/",
         "localBaseUri": "node_modules/uu5codekitg01/dist/"
       },
-      "uuappdesignitg01": {
+      "uuappdesignkitg01": {
         "cdnBaseUri": "https://cdn.plus4u.net/uu-uuappdesignkitg01/%version%/",
-        "localBaseUri": "node_modules/uuappdesignitg01/dist/"
+        "localBaseUri": "node_modules/uuappdesignkitg01/dist/"
       }
     }
   },
