@@ -6,6 +6,7 @@ import ns from "ns";
 import CodeKit from "uu5codekitg01";
 import UuDockitUtils from "../utils/uuDockitUtils";
 import bookkitMarkdownSnippet from "./bookkit-markdown.snippets";
+import SnippetSelectModal from "./selectSnippetModal";
 import {
   bookKitMdToUu5Plugin,
   desighKitMdToUu5Plugin,
@@ -88,7 +89,7 @@ export default createReactClass({
       headerLevel: 2
     });
     this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, {markdownToUu5: this._mdr});
+    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr });
     this._mdr.use(bookKitMdToUu5Plugin);
 
     this._markdownToUuDocKit = new MarkdownToUuDocKit(this._mdr);
@@ -182,7 +183,7 @@ export default createReactClass({
     this.loadedFormStorage = false;
     this.mdValue = md;
     //trigger rerender
-    this.setState({mode: "md"});
+    this.setState({ mode: "md" });
   },
   _insertSnippet(name) {
     let snippets = this._snippetManager.snippetNameMap["markdown"];
@@ -222,23 +223,34 @@ export default createReactClass({
     let editorComponent = this;
     editor.commands.addCommand({
       name: "insertComponent",
-      bindKey: {win: "Alt-Ins", mac: "Command-J"},
-      exec: function () {
+      bindKey: { win: "Alt-I", mac: "Command-J" },
+      exec: function() {
         editorComponent._openModal();
       }
     });
   },
   _openModal() {
-    let snippets = Object.keys(this._snippetManager.snippetNameMap["markdown"]).map(name => (
-      <UU5.Forms.Select.Option key={name} value={name}/>
-    ));
-    this._modal.open({
-      content: (
-        <UU5.Forms.Select label="Component" style={{marginBottom: "100%"}} onChange={this._insertComponent}>
-          {snippets}
-        </UU5.Forms.Select>
-      )
-    });
+    this._modal.open(
+      {
+        content: (
+          <SnippetSelectModal
+            onSelect={this._insertComponent}
+            snippets={Object.keys(this._snippetManager.snippetNameMap["markdown"])}
+            ref_={snippetModal => (this._snippetModal = snippetModal)}
+          />
+        )
+      },
+      this._onSnippetModalOpen
+    );
+  },
+  _onSnippetModalOpen() {
+    //FIXME :  When set focus on modal window ?
+    setTimeout(
+      function() {
+        this._snippetModal.focus();
+      }.bind(this),
+      100
+    );
   },
   //@@viewOff:componentSpecificHelpers
 
@@ -305,7 +317,7 @@ export default createReactClass({
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row hidden={!this._isMode("md")}>
-          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)}/>
+          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)} />
           <UU5.Bricks.Button onClick={this._openModal}>Insert Component</UU5.Bricks.Button>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row>
@@ -351,7 +363,7 @@ export default createReactClass({
             />
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("preview")}>
-            <UU5.Bricks.Div content={r}/>
+            <UU5.Bricks.Div content={r} />
           </UU5.Bricks.Div>
         </UU5.Bricks.Row>
       </UU5.Bricks.Div>
