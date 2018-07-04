@@ -163,7 +163,7 @@ const ReactSelect = createReactClass({
             ref={select => this._select = select}
           />])}
         </div>
-      );
+      ));
   } //@@viewOff:render
 });
 
