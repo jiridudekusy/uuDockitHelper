@@ -60,7 +60,7 @@ const ReactSelect = createReactClass({
     }
     selectValue = this._findObjectByValue(value, options);
 
-    this.setState({value: value, selectValue: selectValue, options: options});
+    this.setState({ value: value, selectValue: selectValue, options: options });
   },
 
   //@@viewOff:standardComponentLifeCycle
@@ -68,7 +68,7 @@ const ReactSelect = createReactClass({
   //@@viewOn:interface
   setValue_(value, setStateCallback) {
     let selectValue = this._findObjectByValue(value);
-    this.setState({value: value === undefined ? null : value, selectValue: selectValue}, setStateCallback);
+    this.setState({ value: value === undefined ? null : value, selectValue: selectValue }, setStateCallback);
 
     return this;
   },
@@ -96,7 +96,7 @@ const ReactSelect = createReactClass({
       this.props.onChange(newValue);
     }
   },
-  isValid: function () {
+  isValid: function() {
     var feedback = this.getFeedback();
     var value = this.getValue();
     var result = true;
@@ -111,7 +111,7 @@ const ReactSelect = createReactClass({
     }
 
     if (result && this.props.onValidate) {
-      var validation = this.props.onValidate({value: value, component: this});
+      var validation = this.props.onValidate({ value: value, component: this });
       if (validation && typeof validation === "object") {
         if (validation.feedback === "error") {
           result = false;
@@ -144,9 +144,10 @@ const ReactSelect = createReactClass({
   render() {
     let inputId = this.getId() + "-input";
     return (
-      (<div {...this._getMainAttrs()}>
-          {this.getLabel(inputId)}
-          {this.getInputWrapper([<Select
+      <div {...this._getMainAttrs()}>
+        {this.getLabel(inputId)}
+        {this.getInputWrapper([
+          <Select
             id={inputId}
             name={this.props.name || inputId}
             options={this.props.options}
@@ -160,10 +161,11 @@ const ReactSelect = createReactClass({
             placeholder={this.props.placeholder || ""}
             autoFocus={this.props.autoFocus}
             openOnFocus={true}
-            ref={select => this._select = select}
-          />])}
-        </div>
-      ));
+            ref={select => (this._select = select)}
+          />
+        ])}
+      </div>
+    );
   } //@@viewOff:render
 });
 
