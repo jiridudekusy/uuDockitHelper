@@ -125,7 +125,7 @@ export default createReactClass({
     });
   },
   getContent() {
-    let res = this._markdownToUuDocKit.toUuDocKit(this.mdValue);
+    let res = this._markdownToUuDocKit.toUuDocKit(this.mdValue, this.state.pretty);
     return JSON.parse(res);
   },
   //@@viewOff:interface
@@ -257,17 +257,17 @@ export default createReactClass({
   //@@viewOn:render
   render() {
     let r = "";
-    if (this.state.mode === "preview") {
+    if (this.state.mode === "preview" || this.state.mode === "uu5src") {
       if (this.uuDocKitValue) {
         r = UuDockitUtils.toUu5(this.uuDocKitValue);
       } else {
-        r = this._markdownToUuDocKit.toUu5(this.mdValue);
+        r = this._markdownToUuDocKit.toUu5(this.mdValue, this.state.pretty);
       }
     } else if (this.state.mode === "uu5") {
       if (this.uuDocKitValue) {
         r = this.uuDocKitValue;
       } else {
-        r = this._markdownToUuDocKit.toUuDocKit(this.mdValue);
+        r = this._markdownToUuDocKit.toUuDocKit(this.mdValue, this.state.pretty);
       }
     }
     return (
@@ -313,12 +313,43 @@ export default createReactClass({
               colorSchema: "success"
             }}
           >
-            uuDocKit
+            uuBookKit
+          </UU5.Bricks.ButtonSwitch>
+          <UU5.Bricks.ButtonSwitch
+            ref_={item => (this._uu5Switch = item)}
+            switchedOn={this._isMode("uu5src")}
+            props={{
+              onClick: () => {
+                this._setMode("uu5src");
+              }
+            }}
+            onProps={{
+              colorSchema: "success"
+            }}
+          >
+            UU5 source
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row hidden={!this._isMode("md")}>
           <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)} />
           <UU5.Bricks.Button onClick={this._openModal}>Insert Component</UU5.Bricks.Button>
+          {/*<UU5.Forms.Checkbox label="Pretty UU5(experimental)" ref_={input => this._prettyPrintSettings = input} type={2}/>*/}
+          <UU5.Bricks.ButtonSwitch
+            switchedOn={this.state.pretty}
+            offProps={{
+              onClick: () => {
+                this.setState({ pretty: true });
+              },
+              content: "Pretty Off"
+            }}
+            onProps={{
+              colorSchema: "success",
+              onClick: () => {
+                this.setState({ pretty: false });
+              },
+              content: "(Experimental) Pretty On"
+            }}
+          />
         </UU5.Bricks.Row>
         <UU5.Bricks.Row>
           <UU5.Bricks.Div hidden={!this._isMode("md")}>
@@ -364,6 +395,9 @@ export default createReactClass({
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("preview")}>
             <UU5.Bricks.Div content={r} />
+          </UU5.Bricks.Div>
+          <UU5.Bricks.Div hidden={!this._isMode("uu5src")}>
+            <CodeKit.Uu5StringEditor value={r} focus height={this._getEditorSize()} rows={0} />
           </UU5.Bricks.Div>
         </UU5.Bricks.Row>
       </UU5.Bricks.Div>
