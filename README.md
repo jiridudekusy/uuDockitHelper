@@ -1,8 +1,10 @@
 # uuDockit-heklper
 Provides helper tools for more efficient work with uuDockit. 
 
+[Changelog](doc/CHANGELOG.md)
+
 **Features** :
-- edit any uuDockit page via markdown
+- edit any uuBookkit page via markdown
 
 # How to Run
 You must have either NodeJS or Docker.
