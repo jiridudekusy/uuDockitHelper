@@ -2,7 +2,7 @@
   "name": "jdk_dockithelperg02",
   "code": "JDK.DOCKITHELPERG01",
   "namespace": "JDK.DockitHelper",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Helper app forworking with uuDockit.",
   "vendor": "JDK",
   "license": "MIT",

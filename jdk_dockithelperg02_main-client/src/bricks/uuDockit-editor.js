@@ -10,13 +10,13 @@ import SnippetSelectModal from "./selectSnippetModal";
 import {
   bookKitMdToUu5Plugin,
   desighKitMdToUu5Plugin,
-  MarkdownToUuDocKit,
+  MarkdownToUuBookKit,
   mdToUu5Plugin,
   UU5CodeKitConverters,
   UU5ToMarkdown,
   UuAppDesignKitConverters,
-  UUDockitPlugin,
-  UuDocKitToMarkdown
+  UuBookKitPlugin,
+  UuBookKitToMarkdown
 } from "uu5-to-markdown";
 
 let md = `Ace (Ajax.org Cloud9 Editor)
@@ -89,18 +89,18 @@ export default createReactClass({
       headerLevel: 2
     });
     this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr });
+    this._mdr.use(desighKitMdToUu5Plugin, {markdownToUu5: this._mdr});
     this._mdr.use(bookKitMdToUu5Plugin);
 
-    this._markdownToUuDocKit = new MarkdownToUuDocKit(this._mdr);
+    this._markdownToUuDocKit = new MarkdownToUuBookKit(this._mdr);
 
     this._uu5toMarkdown = new UU5ToMarkdown(
       new UU5CodeKitConverters(),
-      new UUDockitPlugin(),
+      new UuBookKitPlugin(),
       new UuAppDesignKitConverters()
     );
 
-    this._uuDocKitToMarkdown = new UuDocKitToMarkdown(this._uu5toMarkdown);
+    this._uuDocKitToMarkdown = new UuBookKitToMarkdown(this._uu5toMarkdown);
 
     if (localStorage["lastMDDocKit"]) {
       console.log("loading last MD version from local storage");
@@ -183,7 +183,7 @@ export default createReactClass({
     this.loadedFormStorage = false;
     this.mdValue = md;
     //trigger rerender
-    this.setState({ mode: "md" });
+    this.setState({mode: "md"});
   },
   _insertSnippet(name) {
     let snippets = this._snippetManager.snippetNameMap["markdown"];
@@ -205,17 +205,19 @@ export default createReactClass({
     let parsedSnippets = this._snippetManager.parseSnippetFile(bookkitMarkdownSnippet);
     parsedSnippets.map(snippet => {
       let res = Object.assign(snippet, {
-        _content: snippet.content,
-        get content() {
-          let res = this._content;
-          res = res.replace("__HEX32__", UU5.Common.Tools.generateUUID(32));
-          res = res.replace("__HEX64__", UU5.Common.Tools.generateUUID(64));
-          return res;
+        _content: snippet.content
+      });
+      Object.defineProperty(res, 'content', {
+        get: function () {
+          let content = this._content;
+          content = content.replace("__HEX32__", UU5.Common.Tools.generateUUID(32));
+          content = content.replace("__HEX64__", UU5.Common.Tools.generateUUID(64));
+          return content;
         }
       });
       return res;
     });
-    // this._snippetManager.unregister(Object.values(this._snippetManager.snippetNameMap["markdown"]), "markdown");
+// this._snippetManager.unregister(Object.values(this._snippetManager.snippetNameMap["markdown"]), "markdown");
     this._snippetManager.register(parsedSnippets, "markdown");
   },
   _onEditorLoad(editor) {
@@ -223,12 +225,13 @@ export default createReactClass({
     let editorComponent = this;
     editor.commands.addCommand({
       name: "insertComponent",
-      bindKey: { win: "Alt-I", mac: "Command-J" },
-      exec: function() {
+      bindKey: {win: "Alt-I", mac: "Command-J"},
+      exec: function () {
         editorComponent._openModal();
       }
     });
-  },
+  }
+  ,
   _openModal() {
     this._modal.open(
       {
@@ -242,19 +245,21 @@ export default createReactClass({
       },
       this._onSnippetModalOpen
     );
-  },
+  }
+  ,
   _onSnippetModalOpen() {
     //FIXME :  When set focus on modal window ?
     setTimeout(
-      function() {
+      function () {
         this._snippetModal.focus();
       }.bind(this),
       100
     );
-  },
-  //@@viewOff:componentSpecificHelpers
+  }
+  ,
+//@@viewOff:componentSpecificHelpers
 
-  //@@viewOn:render
+//@@viewOn:render
   render() {
     let r = "";
     if (this.state.mode === "preview" || this.state.mode === "uu5src") {
@@ -331,21 +336,21 @@ export default createReactClass({
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row hidden={!this._isMode("md")}>
-          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)} />
+          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)}/>
           <UU5.Bricks.Button onClick={this._openModal}>Insert Component</UU5.Bricks.Button>
           {/*<UU5.Forms.Checkbox label="Pretty UU5(experimental)" ref_={input => this._prettyPrintSettings = input} type={2}/>*/}
           <UU5.Bricks.ButtonSwitch
             switchedOn={this.state.pretty}
             offProps={{
               onClick: () => {
-                this.setState({ pretty: true });
+                this.setState({pretty: true});
               },
               content: "Pretty Off"
             }}
             onProps={{
               colorSchema: "success",
               onClick: () => {
-                this.setState({ pretty: false });
+                this.setState({pretty: false});
               },
               content: "(Experimental) Pretty On"
             }}
@@ -394,14 +399,15 @@ export default createReactClass({
             />
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("preview")}>
-            <UU5.Bricks.Div content={r} />
+            <UU5.Bricks.Div content={r}/>
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("uu5src")}>
-            <CodeKit.Uu5StringEditor value={r} focus height={this._getEditorSize()} rows={0} />
+            <CodeKit.Uu5StringEditor value={r} focus height={this._getEditorSize()} rows={0}/>
           </UU5.Bricks.Div>
         </UU5.Bricks.Row>
       </UU5.Bricks.Div>
     );
   }
-  //@@viewOff:render
-});
+//@@viewOff:render
+})
+;
