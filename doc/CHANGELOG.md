@@ -1,3 +1,15 @@
+0.4.0
+-----
+Features: 
+* Updated uu5-to-markdown to 0.3.1. See [Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)
+* Add documentation section to menu.
+
+Documentation:
+* Add documentation for `uuContentKit`
+* Add documentation for `snippets`
+
+Bug fixes:
+
 0.3.0
 -----
 * Updated uu5-to-markdown to 0.3.0. See [Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)

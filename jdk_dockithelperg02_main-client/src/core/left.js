@@ -2,11 +2,11 @@ import React from "react";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import UU5 from "uu5g04";
+import Plus4U5 from "uu_plus4u5g01";
 import "uu5g04-bricks";
 import ns from "ns";
 
 import Lsi from "./lsi.js";
-import LeftLink from "../bricks/left-link.js";
 import "./left.less";
 
 export const Left = createReactClass({
@@ -52,19 +52,65 @@ export const Left = createReactClass({
   //@@viewOff:overridingMethods
 
   //@@viewOn:componentSpecificHelpers
-  _goToAbout() {
+  _setRoute(url) {
     this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER) &&
-      this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER).setRoute("/about");
+      this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER).setRoute(url.code);
   },
-
-  _goHome() {
-    this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER) &&
-      this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER).setRoute("/home");
-  },
-
-  _goToEditor() {
-    this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER) &&
-      this.getCcrComponentByKey(UU5.Environment.CCRKEY_ROUTER).setRoute("/editor");
+  _getItems() {
+    return [
+      {
+        content: "Home",
+        code: "/home",
+        indent: 0
+      },
+      {
+        content: "Editor",
+        code: "/editor",
+        indent: 0
+      },
+      {
+        indent: 0,
+        content: '<uu5string/>Documentation <UU5.Bricks.Badge content="new" colorSchema="default"/>',
+        code: "/help"
+      },
+      {
+        indent: 1,
+        content: '<uu5string/>General <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        code: "/help/snippets",
+        indent: 2,
+        content: '<uu5string/>Snippets <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        indent: 1,
+        content: '<uu5string/>Components <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        code: "/help/uuContentKit",
+        indent: 2,
+        content: '<uu5string/>uuContentKit <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        indent: 1,
+        content: '<uu5string/>Changelog <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        code: "/help/changelog",
+        indent: 2,
+        content: '<uu5string/>jdkBookKit Helper <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        href: "https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md",
+        indent: 2,
+        content: '<uu5string/>UU5 to Markdown <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+      },
+      {
+        content: "About",
+        code: "/about",
+        indent: 0
+      }
+    ];
   },
 
   //@@viewOff:componentSpecificHelpers
@@ -73,29 +119,12 @@ export const Left = createReactClass({
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        {/*<UU5.Bricks.Div className="center">*/}
-        {/*<UU5.Bricks.Image name="Logo" responsive src="assets/logo.png" />*/}
-        {/*</UU5.Bricks.Div>*/}
-
-        {this.props.home && (
-          <LeftLink>
-            <UU5.Bricks.Link onClick={this._goHome}>
-              <UU5.Bricks.Icon
-                icon="mdi-home"
-                style={{ fontSize: "20px", lineHeight: "20px", fontFamily: "Material Design Icons" }}
-              />
-              <UU5.Bricks.Span style={{ paddingLeft: "10px", lineHeight: "20px" }}>
-                {this.getLsiComponent("welcome")}
-              </UU5.Bricks.Span>
-            </UU5.Bricks.Link>
-          </LeftLink>
-        )}
-        <LeftLink>
-          <UU5.Bricks.Link content="Editor" onClick={this._goToEditor} />
-        </LeftLink>
-        <LeftLink>
-          <UU5.Bricks.Link content={this.getLsiComponent("aboutApp")} onClick={this._goToAbout} />
-        </LeftLink>
+        <Plus4U5.App.Menu
+          ref_={ref => (UU5.Environment.App.menuRef = ref)}
+          className={this.getClassName("menu")}
+          items={this._getItems()}
+          onClick={this._setRoute}
+        />
       </UU5.Bricks.Div>
     );
   }

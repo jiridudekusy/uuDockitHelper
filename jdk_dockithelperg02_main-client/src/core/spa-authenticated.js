@@ -15,6 +15,11 @@ import About from "./about.js";
 import Home from "./home.js";
 import UuDockitEditor from "./uuDockit-editor";
 import TestPage from "./testPage";
+import Help from "./help";
+import UuContentKitg01Examples from "../../../doc/examples/uuContentKitg01.md";
+import HelpMd from "../../../doc/help.md";
+import ChangelogMd from "../../../doc/CHANGELOG.md";
+import SnippetsMd from "../../../doc/snippets.md";
 
 import "./spa-authenticated.less";
 
@@ -90,7 +95,11 @@ const SpaAuthenticated = createReactClass({
             "/home": { component: <Home identity={this.props.identity} /> },
             "/about": { component: <About identity={this.props.identity} /> },
             "/editor": { component: <UuDockitEditor authorized={false} /> },
-            "/test": { component: <TestPage /> }
+            "/test": { component: <TestPage /> },
+            "/help/uuContentKit": { component: <Help content={UuContentKitg01Examples} /> },
+            "/help/snippets": { component: <Help content={SnippetsMd} /> },
+            "/help": { component: <Help content={HelpMd} /> },
+            "/help/changelog": { component: <Help content={ChangelogMd} /> }
           }}
         />
       </Plus4U5.App.Page>

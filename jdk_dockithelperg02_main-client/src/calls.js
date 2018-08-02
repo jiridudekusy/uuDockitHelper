@@ -20,7 +20,7 @@ let Calls = {
 
   loadDemoContent(dtoIn) {
     let commandUri = Calls.getCommandUri("loadDemoContent");
-    Calls.call("get", commandUri, dtoIn); 
+    Calls.call("get", commandUri, dtoIn);
   },
 
   listUuDockitPages(dtoIn) {
@@ -47,7 +47,6 @@ let Calls = {
     let commandUri = Calls.getUuDockitCommandUri(dtoIn, "updatePageSection");
     Calls.call("post", commandUri, dtoIn);
   },
-
 
   addUuBookKitPageSection(dtoIn) {
     let commandUri = Calls.getUuDockitCommandUri(dtoIn, "addPageSection");
