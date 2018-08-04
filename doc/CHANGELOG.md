@@ -1,3 +1,11 @@
+0.4.1
+-----
+Features: 
+* Pretty mode is turned on by default.
+
+Bug fixes:
+* Fix `basicinfo` snippet.  
+
 0.4.0
 -----
 Features: 

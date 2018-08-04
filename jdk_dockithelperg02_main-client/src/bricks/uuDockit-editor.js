@@ -112,7 +112,8 @@ export default createReactClass({
     }
 
     return {
-      mode: "md"
+      mode: "md",
+      pretty: true
     };
   },
   //@@viewOff:standardComponentLifeCycle
