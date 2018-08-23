@@ -2,7 +2,7 @@
 -----
 
 Bug fixes:
-* Fix bug [https://github.com/jiridudekusy/uuDockitHelper/issues/3](https://github.com/jiridudekusy/uuDockitHelper/issues/3)
+* Fix bug [https://github.com/jiridudekusy/uuDockitHelper/issues/3](https://github.com/jiridudekusy/uuDockitHelper/issues/3) 
 
 0.4.1
 -----
