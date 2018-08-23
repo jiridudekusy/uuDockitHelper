@@ -1,3 +1,9 @@
+0.4.2
+-----
+
+Bug fixes:
+* Fix bug [https://github.com/jiridudekusy/uuDockitHelper/issues/3](https://github.com/jiridudekusy/uuDockitHelper/issues/3)
+
 0.4.1
 -----
 Features: 
