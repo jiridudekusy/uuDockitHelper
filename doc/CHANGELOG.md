@@ -1,3 +1,9 @@
+0.5.0
+-----
+
+* Updated uu5-to-markdown to 0.4.1. See [Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)
+* Basic support for uuDcc. See [uu5-to-markdown Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)
+
 0.4.2
 -----
 
