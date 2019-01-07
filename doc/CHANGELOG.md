@@ -1,3 +1,9 @@
+0.5.2
+-----
+
+Bug fixes:
+* Hotfix for [https://github.com/jiridudekusy/uuDockitHelper/issues/6](https://github.com/jiridudekusy/uuDockitHelper/issues/6) - updated uu5-to-markdown to 0.4.2. See [uu5-to-markdown Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)
+
 0.5.1
 -----
 
