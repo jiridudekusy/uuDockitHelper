@@ -127,10 +127,11 @@ const Home = createReactClass({
     call({
       data: dtoIn,
       done: dtoOut => {
-        this.setState({ pageRev: dtoOut.sys.rev });
         this._alertBus.addAlert({
           content: `Page "${dtoIn.code}" has been saved.`
         });
+        this.setState({ pageRev: dtoOut.sys.rev });
+        this._editor.setContent(dtoOut);
         // this.setState({callFeedback: "ready", joke: dtoOut.data})
       },
       fail: dtoOut => {

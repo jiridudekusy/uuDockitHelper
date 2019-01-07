@@ -1,3 +1,9 @@
+0.5.1
+-----
+
+Bug fixes:
+* [https://github.com/jiridudekusy/uuDockitHelper/issues/5](https://github.com/jiridudekusy/uuDockitHelper/issues/5) - update content after sucessful state, so revision of sections is changed 
+
 0.5.0
 -----
 
