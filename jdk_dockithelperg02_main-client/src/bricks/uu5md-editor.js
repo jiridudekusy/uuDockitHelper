@@ -55,15 +55,16 @@ export default createReactClass({
       headerLevel: 2
     });
     this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr });
+    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5});
     this._mdr.use(bookKitMdToUu5Plugin);
 
     this._uu5toMarkdown = new UU5ToMarkdown(
+      {uu5Core: UU5},
       new UU5CodeKitConverters(),
       new UuBookKitPlugin(),
       new UuAppDesignKitConverters()
     );
-    this._uu5pretifier = new UU5Prettifyer();
+    this._uu5pretifier = new UU5Prettifyer({uu5Core: UU5});
 
     return {
       mode: "preview",
@@ -196,7 +197,6 @@ export default createReactClass({
       if (this.state.pretty) {
         r = r.substring("<uu5string/>".length);
         r = this._uu5pretifier.prettify(r);
-        console.log(r);
       }
     }
     return (

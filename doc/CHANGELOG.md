@@ -1,3 +1,8 @@
+0.6.0
+-----
+
+* Updated uu5-to-markdown to 2.0.0. See [Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)
+
 0.5.2
 -----
 

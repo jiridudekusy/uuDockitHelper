@@ -70,40 +70,40 @@ export const Left = createReactClass({
       },
       {
         indent: 0,
-        content: '<uu5string/>Documentation <UU5.Bricks.Badge content="new" colorSchema="default"/>',
+        content: '<uu5string/>Documentation',
         code: "/help"
       },
       {
         indent: 1,
-        content: '<uu5string/>General <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>General'
       },
       {
         code: "/help/snippets",
         indent: 2,
-        content: '<uu5string/>Snippets <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>Snippets'
       },
       {
         indent: 1,
-        content: '<uu5string/>Components <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>Components'
       },
       {
         code: "/help/uuContentKit",
         indent: 2,
-        content: '<uu5string/>uuContentKit <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>uuContentKit'
       },
       {
         indent: 1,
-        content: '<uu5string/>Changelog <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>Changelog'
       },
       {
         code: "/help/changelog",
         indent: 2,
-        content: '<uu5string/>jdkBookKit Helper <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>jdkBookKit Helper'
       },
       {
         href: "https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md",
         indent: 2,
-        content: '<uu5string/>UU5 to Markdown <UU5.Bricks.Badge content="new" colorSchema="default"/>'
+        content: '<uu5string/>UU5 to Markdown'
       },
       {
         content: "About",

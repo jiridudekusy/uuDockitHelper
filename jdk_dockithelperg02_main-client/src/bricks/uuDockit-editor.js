@@ -89,12 +89,13 @@ export default createReactClass({
       headerLevel: 2
     });
     this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr });
+    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5 });
     this._mdr.use(bookKitMdToUu5Plugin);
 
-    this._markdownToUuDocKit = new MarkdownToUuBookKit(this._mdr);
+    this._markdownToUuDocKit = new MarkdownToUuBookKit(this._mdr, {uu5Core: UU5 });
 
     this._uu5toMarkdown = new UU5ToMarkdown(
+      {uu5Core: UU5 },
       new UU5CodeKitConverters(),
       new UuBookKitPlugin(),
       new UuAppDesignKitConverters()
