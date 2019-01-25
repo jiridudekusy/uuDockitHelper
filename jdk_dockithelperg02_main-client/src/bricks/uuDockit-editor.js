@@ -3,6 +3,7 @@ import createReactClass from "create-react-class";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
+import {MarkdownRenderer} from "uu5codekitg01-markdown";
 import CodeKit from "uu5codekitg01";
 import UuDockitUtils from "../utils/uuDockitUtils";
 import bookkitMarkdownSnippet from "./bookkit-markdown.snippets";
@@ -16,7 +17,9 @@ import {
   UU5ToMarkdown,
   UuAppDesignKitConverters,
   UuBookKitPlugin,
-  UuBookKitToMarkdown
+  UuBookKitToMarkdown,
+  UU5RichTextKitConverters,
+  richTextMdToUu5Plugin
 } from "uu5-to-markdown";
 
 let md = `Ace (Ajax.org Cloud9 Editor)
@@ -81,7 +84,7 @@ export default createReactClass({
 
   //@@viewOn:standardComponentLifeCycle
   getInitialState() {
-    this._mdr = new CodeKit.MarkdownRenderer("full", {
+    this._mdr = new MarkdownRenderer("full", {
       html: true,
       xhtmlOut: true,
       typographer: true,
@@ -90,6 +93,7 @@ export default createReactClass({
     });
     this._mdr.use(mdToUu5Plugin);
     this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5 });
+    this._mdr.use(richTextMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5 });
     this._mdr.use(bookKitMdToUu5Plugin);
 
     this._markdownToUuDocKit = new MarkdownToUuBookKit(this._mdr, {uu5Core: UU5 });
@@ -98,7 +102,8 @@ export default createReactClass({
       {uu5Core: UU5 },
       new UU5CodeKitConverters(),
       new UuBookKitPlugin(),
-      new UuAppDesignKitConverters()
+      new UuAppDesignKitConverters(),
+      new UU5RichTextKitConverters()
     );
 
     this._uuDocKitToMarkdown = new UuBookKitToMarkdown(this._uu5toMarkdown);
@@ -265,7 +270,11 @@ export default createReactClass({
       if (this.uuDocKitValue) {
         r = UuDockitUtils.toUu5(this.uuDocKitValue);
       } else {
-        r = this._markdownToUuDocKit.toUu5(this.mdValue, this.state.pretty);
+        let env = {};
+        if(this.state.mode === "preview"){
+          env.previewMode = true;
+        }
+        r = this._markdownToUuDocKit.toUu5(this.mdValue, this.state.pretty, env);
       }
     } else if (this.state.mode === "uu5") {
       if (this.uuDocKitValue) {

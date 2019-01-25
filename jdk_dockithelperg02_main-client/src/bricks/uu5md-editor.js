@@ -4,6 +4,7 @@ import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import ns from "ns";
 import CodeKit from "uu5codekitg01";
+import {MarkdownRenderer} from "uu5codekitg01-markdown";
 import bookkitMarkdownSnippet from "./bookkit-markdown.snippets";
 import SnippetSelectModal from "./selectSnippetModal";
 import {
@@ -14,7 +15,9 @@ import {
   UU5Prettifyer,
   UU5ToMarkdown,
   UuAppDesignKitConverters,
-  UuBookKitPlugin
+  UuBookKitPlugin,
+  UU5RichTextKitConverters,
+  richTextMdToUu5Plugin
 } from "uu5-to-markdown";
 
 let md = `
@@ -47,7 +50,7 @@ export default createReactClass({
 
   //@@viewOn:standardComponentLifeCycle
   getInitialState() {
-    this._mdr = new CodeKit.MarkdownRenderer("full", {
+    this._mdr = new MarkdownRenderer("full", {
       html: true,
       xhtmlOut: true,
       typographer: true,
@@ -56,13 +59,15 @@ export default createReactClass({
     });
     this._mdr.use(mdToUu5Plugin);
     this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5});
+    this._mdr.use(richTextMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5 });
     this._mdr.use(bookKitMdToUu5Plugin);
 
     this._uu5toMarkdown = new UU5ToMarkdown(
       {uu5Core: UU5},
       new UU5CodeKitConverters(),
       new UuBookKitPlugin(),
-      new UuAppDesignKitConverters()
+      new UuAppDesignKitConverters(),
+      new UU5RichTextKitConverters()
     );
     this._uu5pretifier = new UU5Prettifyer({uu5Core: UU5});
 

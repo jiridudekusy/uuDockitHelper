@@ -14,21 +14,24 @@
     "node": ">=6.9.2"
   },
   "dependencies": {
-    "create-react-class": "15.6.0",
-    "prop-types": "15.6.0",
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
+    "create-react-class": "15.6.3",
+    "prop-types": "15.6.1",
+    "react": "16.4.0",
+    "react-dom": "16.4.0",
+    "react-select": "^1.2.1",
     "systemjs": "0.19.47",
     "systemjs-plugin-json": "0.2.1",
-    "uu5-to-markdown": "^2.0.0",
-    "react-select": "^1.2.1",
-    "uu5codekitg01": "https://cdn.plus4u.net/uu-uu5codekitg01/1.1.1/uu5codekitg01.tgz",
+    "uu5-to-markdown": "^2.1.3",
+    "uu5codekitg01": "https://cdn.plus4u.net/uu-uu5codekitg01/1.0.0/uu5codekitg01.tgz",
+    "uu5codekitg01-markdown": "https://cdn.plus4u.net/uu-uu5codekitg01/1.0.0/uu5codekitg01.tgz",
     "uu5g04": "https://cdn.plus4u.net/uu-uu5g04/1.0.0/uu5g04.tgz",
+    "uu5richtextg01": "https://cdn.plus4u.net/uu-uu5richtextg01/1.0.0/uu5richtextg01.tgz",
+    "uu_uu5richtextg01": "https://cdn.plus4u.net/uu-uu5richtextg01/1.0.0/uu5richtextg01.tgz",
     "uu_appg01": "https://cdn.plus4u.net/uu-appg01/3.0.0/uu_appg01.tgz",
     "uu_appg01_core": "https://cdn.plus4u.net/uu-appg01-core/3.0.0/uu_appg01_core.tgz",
     "uu_oidcg01": "https://cdn.plus4u.net/uu-oidcg01/3.0.0/uu_oidcg01.tgz",
     "uu_plus4u5g01": "https://cdn.plus4u.net/uu-plus4u5g01/1.0.0/uu_plus4u5g01.tgz",
-    "uuappdesignkitg01": "https://cdn.plus4u.net/uu-uuappdesignkitg01/1.0.0/uuappdesignkitg01.tgz"
+    "uuappdesignkitg01": "https://cdn.plus4u.net/uu-uuappdesignkitg01/2.0.0/uuappdesignkitg01.tgz"
   },
   "uuBuildSettings": {
     "useCdn": false,
@@ -108,9 +111,21 @@
         "cdnBaseUri": "https://cdn.plus4u.net/uu-uu5codekitg01/%version%/",
         "localBaseUri": "node_modules/uu5codekitg01/dist/"
       },
+      "uu5codekitg01-markdown": {
+        "cdnBaseUri": "https://cdn.plus4u.net/uu-uu5codekitg01/%version%/",
+        "localBaseUri": "node_modules/uu5codekitg01/dist/"
+      },
       "uuappdesignkitg01": {
         "cdnBaseUri": "https://cdn.plus4u.net/uu-uuappdesignkitg01/%version%/",
         "localBaseUri": "node_modules/uuappdesignkitg01/dist/"
+      },
+      "uu5richtextg01": {
+        "cdnBaseUri": "https://cdn.plus4u.net/uu_uu5richtextg01/%version%/",
+        "localBaseUri": "node_modules/uu5richtextg01/dist/"
+      },
+      "uu_uu5richtextg01": {
+        "cdnBaseUri": "https://cdn.plus4u.net/uu_uu5richtextg01/%version%/",
+        "localBaseUri": "node_modules/uu5richtextg01/dist/"
       }
     }
   },
@@ -177,7 +192,7 @@
   "name": "jdk_dockithelperg02",
   "code": "JDK.DOCKITHELPERG01",
   "namespace": "JDK.DockitHelper",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Helper app forworking with uuDockit.",
   "vendor": "JDK",
   "license": "MIT",

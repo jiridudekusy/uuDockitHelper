@@ -1,3 +1,12 @@
+0.7.0
+-----
+* Updated all uu5 libraries to latest version.
+* Updated uu5-to-markdown from 2.0.0 to 2.1.3. See [Changelog](https://github.com/jiridudekusy/uu5-to-markdown/blob/master/doc/CHANGELOG.md)
+* `UU5.RichText.Block` is now supported together with snippet `richtext`.
+
+Bug fixes:
+  - uuAppDesignKit components are again shown in preview.
+
 0.6.0
 -----
 
