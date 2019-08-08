@@ -16,13 +16,11 @@
   "plugins": [
     "node",
     "react",
-    "json",
-    "prettier"
+    "json"
   ],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "prettier"
+    "plugin:react/recommended"
   ],
   "rules": {
     "indent": ["warn", 2],

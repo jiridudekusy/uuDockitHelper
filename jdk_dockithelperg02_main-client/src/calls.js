@@ -110,10 +110,8 @@ let Calls = {
     let targetUriStr = Calls.DOCKIT_BASE_UR + aUseCase.replace(/^\/+/, "");
 
     let uriBuilder = Uri.UriBuilder.parse(targetUriStr);
-    uriBuilder.tid = dtoIn.data.tid;
-    uriBuilder.awid = dtoIn.data.awid;
-    delete dtoIn.data.tid;
-    delete dtoIn.data.awid;
+    uriBuilder.workspace = dtoIn.data.workspace;
+    // delete dtoIn.data.workspace;
     targetUriStr = uriBuilder.toUri().toString();
 
     return targetUriStr;

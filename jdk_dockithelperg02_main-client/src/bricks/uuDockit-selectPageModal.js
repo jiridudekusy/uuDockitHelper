@@ -49,6 +49,7 @@ export default createReactClass({
   },
   _getSelectPageComponent() {
     if (this.state.book) {
+      console.log("Book state: " + JSON.stringify(this.state.book, null, 2));
       return (
         <UU5.Bricks.Div style={{ marginBottom: "100%" }}>
           <UuDockitPageSelect onSelect={this._handlePageChange} book={this.state.book} />

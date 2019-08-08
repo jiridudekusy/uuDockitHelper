@@ -49,8 +49,7 @@ export default createReactClass({
     });
     let uri = Uri.UriBuilder.parse(this._bookUriInput.getValue());
     let book = {
-      tid: uri.tid,
-      awid: uri.awid
+      workspace: uri.workspace
     };
     if (this.props.onBookSet) {
       this.props.onBookSet(book);

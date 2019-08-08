@@ -3,12 +3,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run start-dev",
-    "prestart-dev": "node tools/check-install.js && node tools/build-uc.js --skip-webpack",
-    "start-dev": "webpack-dev-server --hot --inline --compress --config tools/webpack.config.js",
+    "prestart-dev": "cross-env NODE_ENV=development node tools/check-install.js && node tools/build-uc.js --skip-webpack",
+    "start-dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --compress --config tools/webpack.config.js",
     "prestart-prod": "cross-env NODE_ENV=production node tools/build-uc.js --skip-webpack",
     "start-prod": "cross-env NODE_ENV=production webpack-dev-server --compress --config tools/webpack.config.js",
     "dist": "cross-env NODE_ENV=production node tools/build-uc.js",
-    "prettify": "prettier --write \"{src,test}/**/*.js\""
+    "prettify": "prettier --write \"{src,test}/**/*.js\"",
+    "start-uu5-dev": "cp -rf ../../uu5-to-markdown/lib/* node_modules/uu5-to-markdown/lib; npm run start"
   },
   "engines": {
     "node": ">=6.9.2"

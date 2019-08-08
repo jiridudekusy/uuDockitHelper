@@ -51,8 +51,7 @@ const Home = createReactClass({
       let uri = Uri.UriBuilder.parse(this.props.params.page);
       let page = {
         book: {
-          tid: uri.tid,
-          awid: uri.awid
+          workspace: uri.workspace
         },
         code: uri.parameters.code
       };
@@ -93,8 +92,7 @@ const Home = createReactClass({
     call({
       data: {
         code: page.code,
-        tid: page.book.tid,
-        awid: page.book.awid
+        workspace: page.book.workspace
       },
       done: dtoOut => {
         this.setState({ pageRev: dtoOut.sys.rev });
@@ -119,8 +117,7 @@ const Home = createReactClass({
     console.log("Save content");
     let dtoIn = this._editor.getContent();
 
-    dtoIn.tid = this.state.page.book.tid;
-    dtoIn.awid = this.state.page.book.awid;
+    dtoIn.workspace = this.state.page.book.workspace;
     dtoIn.sys = { rev: this.state.pageRev };
 
     let call = this.getCall("updatePage");

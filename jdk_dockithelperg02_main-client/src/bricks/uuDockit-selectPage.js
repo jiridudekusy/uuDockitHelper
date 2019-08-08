@@ -49,6 +49,7 @@ export default createReactClass({
 
   //@@viewOn:overridingMethods
   getOnLoadData_(props) {
+    console.log("Page state:" + JSON.stringify( props.book, null, 2));
     return props.book;
   },
   //@@viewOff:overridingMethods
@@ -74,7 +75,9 @@ export default createReactClass({
     let prefix = "<uu5string/> " + Array(page.indent + 1).join("-");
     let res = [];
     let label = this._getPageLabel(page);
-
+    if(!label) {
+      label = page.page;
+    }
     if (label.startsWith("<uu5string/>")) {
       label = label.substring("<uu5string/>".length);
     }

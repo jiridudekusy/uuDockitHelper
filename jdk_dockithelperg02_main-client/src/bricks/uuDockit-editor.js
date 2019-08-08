@@ -8,18 +8,18 @@ import CodeKit from "uu5codekitg01";
 import UuDockitUtils from "../utils/uuDockitUtils";
 import bookkitMarkdownSnippet from "./bookkit-markdown.snippets";
 import SnippetSelectModal from "./selectSnippetModal";
+import registerUU5MarkdownMode from "./ace-extensions/theme/uu5markdown-mode";
+import registerUU5LightTheme from "./ace-extensions/mode/uu5markdown-light-theme";
+
 import {
-  bookKitMdToUu5Plugin,
-  desighKitMdToUu5Plugin,
   MarkdownToUuBookKit,
-  mdToUu5Plugin,
-  UU5CodeKitConverters,
+  Uu5BricksPlugin,
+  Uu5CodeKitPlugin,
+  Uu5RichTextPlugin,
   UU5ToMarkdown,
-  UuAppDesignKitConverters,
+  UuAppDesignKitPlugin,
   UuBookKitPlugin,
-  UuBookKitToMarkdown,
-  UU5RichTextKitConverters,
-  richTextMdToUu5Plugin
+  UuBookKitToMarkdown
 } from "uu5-to-markdown";
 
 let md = `Ace (Ajax.org Cloud9 Editor)
@@ -84,6 +84,7 @@ export default createReactClass({
 
   //@@viewOn:standardComponentLifeCycle
   getInitialState() {
+
     this._mdr = new MarkdownRenderer("full", {
       html: true,
       xhtmlOut: true,
@@ -91,20 +92,28 @@ export default createReactClass({
       highlight: true,
       headerLevel: 2
     });
-    this._mdr.use(mdToUu5Plugin);
-    this._mdr.use(desighKitMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5 });
-    this._mdr.use(richTextMdToUu5Plugin, { markdownToUu5: this._mdr, uu5Core: UU5 });
-    this._mdr.use(bookKitMdToUu5Plugin);
+    this._uu5toMarkdown = new UU5ToMarkdown({uu5Core: UU5});
 
-    this._markdownToUuDocKit = new MarkdownToUuBookKit(this._mdr, {uu5Core: UU5 });
+    let uu5BricksPlugin = new Uu5BricksPlugin();
+    uu5BricksPlugin.applyMarkdownPlugin(this._mdr);
+    uu5BricksPlugin.applyUu5Plugin(this._uu5toMarkdown);
 
-    this._uu5toMarkdown = new UU5ToMarkdown(
-      {uu5Core: UU5 },
-      new UU5CodeKitConverters(),
-      new UuBookKitPlugin(),
-      new UuAppDesignKitConverters(),
-      new UU5RichTextKitConverters()
-    );
+    let uuAppDesignKitPlugin = new UuAppDesignKitPlugin({uu5Core: UU5});
+    uuAppDesignKitPlugin.applyMarkdownPlugin(this._mdr);
+    uuAppDesignKitPlugin.applyUu5Plugin(this._uu5toMarkdown);
+
+    let uu5RichTextPlugin = new Uu5RichTextPlugin({uu5Core: UU5});
+    uu5RichTextPlugin.applyMarkdownPlugin(this._mdr);
+    uu5RichTextPlugin.applyUu5Plugin(this._uu5toMarkdown);
+
+    let uuBookKitPlugin = new UuBookKitPlugin();
+    uuBookKitPlugin.applyMarkdownPlugin(this._mdr);
+    uuBookKitPlugin.applyUu5Plugin(this._uu5toMarkdown);
+
+    let uu5CodeKitPlugin = new Uu5CodeKitPlugin();
+    uu5CodeKitPlugin.applyUu5Plugin(this._uu5toMarkdown);
+
+    this._markdownToUuDocKit = new MarkdownToUuBookKit(this._mdr, {uu5Core: UU5});
 
     this._uuDocKitToMarkdown = new UuBookKitToMarkdown(this._uu5toMarkdown);
 
@@ -190,7 +199,7 @@ export default createReactClass({
     this.loadedFormStorage = false;
     this.mdValue = md;
     //trigger rerender
-    this.setState({ mode: "md" });
+    this.setState({mode: "md"});
   },
   _insertSnippet(name) {
     let snippets = this._snippetManager.snippetNameMap["markdown"];
@@ -205,6 +214,10 @@ export default createReactClass({
     this._insertSnippet(input.value);
   },
   _onBeforeLoadMd(ace) {
+    this._ace = ace;
+    registerUU5LightTheme(ace);
+    registerUU5MarkdownMode(ace);
+
     if (this._snippetManager != undefined) {
       return;
     }
@@ -215,7 +228,7 @@ export default createReactClass({
         _content: snippet.content
       });
       Object.defineProperty(res, "content", {
-        get: function() {
+        get: function () {
           let content = this._content;
           content = content.replace("__HEX32__", UU5.Common.Tools.generateUUID(32));
           content = content.replace("__HEX64__", UU5.Common.Tools.generateUUID(64));
@@ -232,8 +245,8 @@ export default createReactClass({
     let editorComponent = this;
     editor.commands.addCommand({
       name: "insertComponent",
-      bindKey: { win: "Alt-I", mac: "Command-J" },
-      exec: function() {
+      bindKey: {win: "Alt-I", mac: "Command-J"},
+      exec: function () {
         editorComponent._openModal();
       }
     });
@@ -255,33 +268,49 @@ export default createReactClass({
   _onSnippetModalOpen() {
     //FIXME :  When set focus on modal window ?
     setTimeout(
-      function() {
+      function () {
         this._snippetModal.focus();
       }.bind(this),
       100
     );
+  },
+  _renderError(error){
+    if(!error){
+      return (<UU5.Bricks.Div/>);
+    } else {
+      return (<UU5.Common.Error
+        error={error.message}
+        errorInfo={error.stack}
+      />);
+    }
   },
   //@@viewOff:componentSpecificHelpers
 
   //@@viewOn:render
   render() {
     let r = "";
-    if (this.state.mode === "preview" || this.state.mode === "uu5src") {
-      if (this.uuDocKitValue) {
-        r = UuDockitUtils.toUu5(this.uuDocKitValue);
-      } else {
-        let env = {};
-        if(this.state.mode === "preview"){
-          env.previewMode = true;
+    let error = null;
+    try {
+      if (this.state.mode === "preview" || this.state.mode === "uu5src") {
+        if (this.uuDocKitValue) {
+          r = UuDockitUtils.toUu5(this.uuDocKitValue);
+        } else {
+          let env = {};
+          if (this.state.mode === "preview") {
+            env.previewMode = true;
+          }
+          r = this._markdownToUuDocKit.toUu5(this.mdValue, this.state.pretty, env);
         }
-        r = this._markdownToUuDocKit.toUu5(this.mdValue, this.state.pretty, env);
+      } else if (this.state.mode === "uu5") {
+        if (this.uuDocKitValue) {
+          r = this.uuDocKitValue;
+        } else {
+          r = this._markdownToUuDocKit.toUuDocKit(this.mdValue, this.state.pretty);
+        }
       }
-    } else if (this.state.mode === "uu5") {
-      if (this.uuDocKitValue) {
-        r = this.uuDocKitValue;
-      } else {
-        r = this._markdownToUuDocKit.toUuDocKit(this.mdValue, this.state.pretty);
-      }
+    } catch (e) {
+      console.error(e, e.stack);
+      error = e;
     }
     return (
       <UU5.Bricks.Div>
@@ -344,21 +373,21 @@ export default createReactClass({
           </UU5.Bricks.ButtonSwitch>
         </UU5.Bricks.Row>
         <UU5.Bricks.Row hidden={!this._isMode("md")}>
-          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)} />
+          <UU5.Bricks.Modal header="Select Page" ref_={modal => (this._modal = modal)}/>
           <UU5.Bricks.Button onClick={this._openModal}>Insert Component</UU5.Bricks.Button>
           {/*<UU5.Forms.Checkbox label="Pretty UU5(experimental)" ref_={input => this._prettyPrintSettings = input} type={2}/>*/}
           <UU5.Bricks.ButtonSwitch
             switchedOn={this.state.pretty}
             offProps={{
               onClick: () => {
-                this.setState({ pretty: true });
+                this.setState({pretty: true});
               },
               content: "Pretty Off"
             }}
             onProps={{
               colorSchema: "success",
               onClick: () => {
-                this.setState({ pretty: false });
+                this.setState({pretty: false});
               },
               content: "(Experimental) Pretty On"
             }}
@@ -375,7 +404,7 @@ export default createReactClass({
               Last version has been loaded from local storage.
               <UU5.Bricks.Link onClick={this._resetLocalStorage}>Reset local storage</UU5.Bricks.Link>
             </UU5.Bricks.P>
-            <CodeKit.MarkdownEditor
+            <CodeKit.CodeEditor
               value={this.mdValue}
               focus
               height={this._getEditorSize()}
@@ -387,6 +416,8 @@ export default createReactClass({
               enableSnippets={true}
               onBeforeLoad={this._onBeforeLoadMd}
               onLoad={this._onEditorLoad}
+              codeStyle="uu5Markdown"
+              theme="uu5markdown-lightCode"
             />
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("uu5")}>
@@ -395,6 +426,7 @@ export default createReactClass({
                 Keyboard Shortcuts
               </UU5.Bricks.Link>
             </UU5.Bricks.P>
+            {this._renderError(error)}
 
             <CodeKit.JsonEditor
               value={r}
@@ -407,10 +439,12 @@ export default createReactClass({
             />
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("preview")}>
-            <UU5.Bricks.Div content={r} />
+            {this._renderError(error)}
+            <UU5.Bricks.Div content={r}/>
           </UU5.Bricks.Div>
           <UU5.Bricks.Div hidden={!this._isMode("uu5src")}>
-            <CodeKit.Uu5StringEditor value={r} focus height={this._getEditorSize()} rows={0} />
+            {this._renderError(error)}
+            <CodeKit.Uu5StringEditor value={r} focus height={this._getEditorSize()} rows={0}/>
           </UU5.Bricks.Div>
         </UU5.Bricks.Row>
       </UU5.Bricks.Div>
