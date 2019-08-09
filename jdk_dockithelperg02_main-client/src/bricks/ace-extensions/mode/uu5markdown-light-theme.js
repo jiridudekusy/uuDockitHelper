@@ -206,12 +206,10 @@ export default function registerUu5Mode(ace) {
     border: 1px solid #2196F3;
 }
 
-.ace-uu5-l .ace_uu5algorithm-errorCode ,
-.ace-uu5-l .ace_uu5algorithm-errorMessage , 
-.ace-uu5-l .ace_uu5algorithm-errorParams {
-  color: rgb(147, 15, 128);
-}
+.ace-uu5-l .ace_visualize-whitespace {
     
+}
+ 
 .ace-uu5-l .ace_indent-guide {
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
 }      

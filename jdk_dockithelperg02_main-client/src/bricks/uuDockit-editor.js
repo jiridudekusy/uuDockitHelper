@@ -238,7 +238,7 @@ export default createReactClass({
       return res;
     });
     // this._snippetManager.unregister(Object.values(this._snippetManager.snippetNameMap["markdown"]), "markdown");
-    this._snippetManager.register(parsedSnippets, "markdown");
+    this._snippetManager.register(parsedSnippets, "uu5Markdown");
   },
   _onEditorLoad(editor) {
     this._mdAceEditor = editor;

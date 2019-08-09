@@ -78,16 +78,28 @@ export default function registerUu5Mode(ace) {
             regex: "Error:"
           },
           {
-            token: "uu5algorithm-errorCode",
-            regex: "Code:"
+            token: ["","keyword.uu5algorithm-error-code","support.function","visualize-whitespace"],
+            regex: /(^\s*)(Code:)(.+?)(\s*$)/
           },
           {
-            token: "uu5algorithm-errorMessage",
-            regex: "Message:"
+            token: ["","keyword.uu5algorithm-error-message","support.constant"],
+            regex: /(^\s*)(Message:)(.+$)/
           },
           {
-            token: "uu5algorithm-errorParams",
+            token: "keyword.uu5algorithm-error-params",
             regex: "Params:"
+          },
+          {
+            token: ["","keyword.uu5algorithm-error-throwException","constant.language"],
+            regex: /(^\s*)(Throw exception:)(.+$)/
+          },
+          {
+            token: "keyword.uu5algorithm-common-condition",
+            regex: "Condition:"
+          },
+          {
+            token: "keyword.uu5algorithm-common-statements",
+            regex: "Statements:"
           },
           {
             token: "uu5algorithm-step-common.uu5algorithm-iteration",

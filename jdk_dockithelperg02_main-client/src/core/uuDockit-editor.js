@@ -128,6 +128,8 @@ const Home = createReactClass({
           content: `Page "${dtoIn.code}" has been saved.`
         });
         this.setState({ pageRev: dtoOut.sys.rev });
+
+        //TODO There should be error hanling around this method !!!!
         this._editor.setContent(dtoOut);
         // this.setState({callFeedback: "ready", joke: dtoOut.data})
       },

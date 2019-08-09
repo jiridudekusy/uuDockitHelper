@@ -76,3 +76,56 @@ snippet richtext
 	${0}
 
 	{/richtext}
+
+snippet sequence
+	${1:1}.  Sequence:  // ${2:comment}  
+	    Description: ${3:Statement description...}  
+	    Statements:  
+	    ${0}
+
+snippet step
+	${1:1}.  Step:  // ${2:comment}  
+	    Description: ${3:Statement description...}  
+  ${0}
+
+snippet error
+	${1:1}.  Error:  // ${2:comment}  
+	    Description: ${3:Statement description...}  
+	    Code: ${4:Error code}  
+	    Message: ${5:Error message}  
+	    Throw exception: ${6:true}  
+	    Params: ${7: Error params}
+	${0}
+
+snippet iteration
+	${1:1}.  Iteration:  // ${2:comment}  
+	    Condition: ${3:condition}  
+	    Description: ${4:Statement description...}  
+	    Statements:  
+	    ${0}
+
+snippet selectionIf
+	${1:1}.  SelectionIf:  // ${2:comment}  
+	    Description: ${3:Statement description...}  
+	    Statements:  
+	    A.  If: // ${4}  
+	        Condition: ${5}  
+	        Description: ${6}  
+	        Statements:  
+	        ${0}
+
+snippet elseif
+	${1:B}.  ElseIf:  // ${2:comment}  
+	    Condition: ${3:condition}  
+	    Description: ${4:Statement description...}  
+	    Statements:  
+	    ${0}
+
+snippet else
+	${1:B}.  Else:  // ${2:comment}  
+	    Description: ${4:Statement description...}  
+	    Statements:  
+	    ${0}
+
+
+support.function
