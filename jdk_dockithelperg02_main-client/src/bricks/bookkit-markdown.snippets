@@ -127,5 +127,40 @@ snippet else
 	    Statements:  
 	    ${0}
 
+snippet algorithm
+	
+	{algorithm}
+	*   Name: ${1}
+	*   Description: ${2} 
+	*   Error Prefix: ${3}
+	
+	${0}
+	
+	{/algorithm}
+	
 
-support.function
+snippet skeletonAlgorithm
+	1.  Sequence: //  
+	    Description: Standard `dtoIn` validation.  
+	    Statements:  
+	    1.  Step: //  
+	        Description: Call the `validate` method for `dtoIn` by `dtoInType` and fills `validationResult` with it.  
+	    2.  Sequence: //  
+	        Description: Call the `validationHelper` that write `validationResults` into the `uuAppErrorMap` .  
+	        Statements:  
+	        1.  Warning: //  
+	            Description: Write warning to uuAppErrorMap, if dtoIn contains unsupported keys.  
+	            Code: unsupportedKeys  
+	            Message: DtoIn contains unsupported keys.  
+	            Params: unsupportedKeyList:[“…”] //unsupported dtoIn keys were deleted  
+	        2.  Error: //  
+	            Description: Write error to uuAppErrorMap and terminate, if dtoIn is not valid.  
+	            Code: invalidDtoIn  
+	            Message: DtoIn is not valid.  
+	            Throw exception: true  
+	            Params: invalidTypeKeyMap:{"…"} //map of keys with invalid type
+	            invalidValueKeyMap:{"…"} //map of keys with invalid value
+	            missingKeyMap:{"…"} //map of required keys
+	${0}
+	3.  Step: //  
+	    Description: Return `dtoOut` .
